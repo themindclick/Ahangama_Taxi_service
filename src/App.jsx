@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import FleetPage from './pages/FleetPage';
 import About from './pages/About';
 import Booking from './components/booking';
+import Services from './pages/Services';
 
 // import Home from './pages/Home';
 // import Fleet from './pages/Fleet';
@@ -24,7 +25,7 @@ function App() {
           <Route path="/fleet" element={<FleetPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/booking" element={<Booking />} />
-
+          <Route path="/services" element={<Services />} />
 
           {/* <Route path="about" element={<About />} />
           <Route path="book" element={<Appointment />} />

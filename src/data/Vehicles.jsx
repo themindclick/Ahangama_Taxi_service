@@ -57,7 +57,7 @@ export const vehicles = [
     capacity: "2 - 10 Passengers",
     baggage: "8 - 10 Large Luggage",
     note: "Vehicle capacity may vary based on the size and quantity of passenger luggage.",
-    image: "https://taxilankatravel.com/wp-content/uploads/2023/11/TOYOTA-KDH-HIGHROOF-900x600.png",
+    image: "https://w0.peakpx.com/wallpaper/93/799/HD-wallpaper-of-toyota-hiace-combi-high-roof-2010-toyota-kdh.jpg",
     price: "Max Capacity",
     features: ["Max Space", "Tour Ready"]
   },

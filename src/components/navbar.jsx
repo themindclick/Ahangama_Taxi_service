@@ -7,7 +7,7 @@ const NAV_LINKS = [
   { name: 'Services', path: '/services' },
   { name: 'Our Fleet',path: '/fleet'    },
   { name: 'About Us', path: '/about'    },
-  { name: 'Contact',  path: '/contact'  },
+  
 ];
 
 const Navbar = () => {
@@ -61,7 +61,7 @@ const Navbar = () => {
                 `}
               >
                 <img
-                  src="https://www.shutterstock.com/image-vector/galle-sea-fort-lighthouse-sri-260nw-1663129834.jpg"
+                  src="/assets/taxi_logo.png"
                   alt="Taxi Service Ahangama"
                   className="w-full h-full object-cover"
                 />
