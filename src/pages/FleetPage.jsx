@@ -4,6 +4,7 @@
 
 import React, { useState, useMemo } from "react";
 import { vehicles, serviceTypes, businessInfo } from "../data/vehicles";
+import { Vehicles } from "../data/vehicles.jsx";
 
 const FleetPage = () => {
   const [activeCategory, setActiveCategory] = useState("all");
