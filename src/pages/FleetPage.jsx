@@ -3,7 +3,7 @@
 // Default: shows ALL vehicles; filter by category tab or search
 
 import React, { useState, useMemo } from "react";
-import { vehicles, serviceTypes, businessInfo } from "../data/vehicles";
+import { vehicles, serviceTypes, businessInfo } from "../data/Vehicles";
 
 const FleetPage = () => {
   const [activeCategory, setActiveCategory] = useState("all");
