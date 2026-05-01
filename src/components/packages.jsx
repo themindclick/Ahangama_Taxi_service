@@ -1,5 +1,5 @@
 import React from "react";
-import { businessInfo } from "../data/Vehicles";
+import { businessInfo } from "../data/vehicles";
 
 const packages = [
   {
