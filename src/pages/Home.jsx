@@ -4,7 +4,7 @@ import Topcars from "../components/topcars";
 import Booking from "../components/booking";
 import Reviews from "../components/reviews";
 
-import Packages from "../components/Packages";
+import Packages from "../components/packages";
 
 
 const Home = () => {
