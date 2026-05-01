@@ -1,6 +1,6 @@
 // src/data/vehicles.jsx
 
-export const vehicles = [
+export const Vehicles = [
   {
     id: "budget",
     label: "Budget",
