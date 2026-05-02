@@ -89,7 +89,7 @@ export default function Hero() {
 
         /* ─── BANNER ─────────────────────────────────── */
         .h-banner {
-          position: relative; min-height: 52vh;
+          position: relative; min-height: 40vh;
           display: flex; align-items: center; justify-content: center;
           overflow: hidden; text-align: center;
         }
