@@ -3,7 +3,7 @@
 
 import React, { useState, useRef } from "react";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
-import { vehicles, serviceTypes, businessInfo } from "../data/Vehicles";
+import { vehicles, serviceTypes, businessInfo } from "../data/vehicles";
 
 const libraries = ["places"];
 
