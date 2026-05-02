@@ -52,7 +52,7 @@ const packages = [
   }
 ];
 
-export default function packages() {
+export default function Packages() {
   const handleBooking = (pkg) => {
     const msg = 
       `Hello! I'm interested in the *${pkg.title}*.%0A%0A` +
