@@ -8,21 +8,35 @@ const libraries = ["places"];
 export default function Hero() {
   const [activeService, setActiveService] = useState("airport");
   const [selectedVehicle, setSelectedVehicle] = useState(null);
-  const [hoveredCard, setHoveredCard] = useState(null);
 
   // Form States
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropLocation, setDropLocation] = useState("");
   const [dateTime, setDateTime] = useState("");
   const [passengerName, setPassengerName] = useState("");
+  const [passengerCount, setPassengerCount] = useState("");
+  const [bagsCount, setBagsCount] = useState("");
+  const [bagsSize, setBagsSize] = useState("");
+
+  // Customize Tour Specific States (from Screenshot 2026-05-05 212005.png)
+  const [tourType, setTourType] = useState("");
+  const [tourDays, setTourDays] = useState(1);
+  const [adults, setAdults] = useState(1);
+  const [children, setChildren] = useState(0);
+  const [infants, setInfants] = useState(0);
+  const [handLuggage, setHandLuggage] = useState(0);
+  const [checkInLuggage, setCheckInLuggage] = useState(0);
+  const [destinations, setDestinations] = useState([]);
+  const [tempDest, setTempDest] = useState("");
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: businessInfo.googleApiKey,
+    googleApiKey: businessInfo.googleApiKey,
     libraries,
   });
 
   const pickupAutocompleteRef = useRef(null);
   const dropAutocompleteRef = useRef(null);
+  const destAutocompleteRef = useRef(null);
 
   const filteredVehicles = vehicles.filter((v) =>
     v.categories.includes(activeService)
@@ -52,15 +66,38 @@ export default function Hero() {
     }
   };
 
-  const handleWhatsApp = () => {
-    if (!selectedVehicle) return;
-    const msg =
-      `Hello! I'd like to book a ride.%0A%0A` +
-      `*Vehicle:* ${selectedVehicle.label} (${selectedVehicle.model})%0A` +
-      `*Pickup:* ${pickupLocation || "Not specified"}%0A` +
-      `*Drop:* ${dropLocation || "Not specified"}%0A` +
-      `*Date/Time:* ${dateTime || "Not specified"}%0A` +
-      `*Customer:* ${passengerName || "Not specified"}`;
+  const addDestination = () => {
+    if (tempDest.trim()) {
+      setDestinations([...destinations, tempDest.trim()]);
+      setTempDest("");
+    }
+  };
+
+  const handleWhatsApp = (isTour = false) => {
+    let msg = "";
+    if (isTour) {
+      msg = 
+        `*CUSTOM TOUR INQUIRY*%0A%0A` +
+        `*Tour Type:* ${tourType || "Flexible"}%0A` +
+        `*Pickup:* ${pickupLocation || "Not specified"}%0A` +
+        `*Drop:* ${dropLocation || "Not specified"}%0A` +
+        `*Date:* ${dateTime || "Not specified"}%0A` +
+        `*Days:* ${tourDays}%0A` +
+        `*Pax:* Adults: ${adults}, Children: ${children}, Infants: ${infants}%0A` +
+        `*Luggage:* Hand: ${handLuggage}, Check-in: ${checkInLuggage}%0A` +
+        `*Destinations:* ${destinations.join(" -> ") || "Flexible"}`;
+    } else {
+      if (!selectedVehicle) return;
+      msg =
+        `Hello! I'd like to book a ride.%0A%0A` +
+        `*Vehicle:* ${selectedVehicle.label} (${selectedVehicle.model})%0A` +
+        `*Pickup:* ${pickupLocation || "Not specified"}%0A` +
+        `*Drop:* ${dropLocation || "Not specified"}%0A` +
+        `*Date/Time:* ${dateTime || "Not specified"}%0A` +
+        `*Customer:* ${passengerName || "Not specified"}%0A` +
+        `*Passengers:* ${passengerCount || "Not specified"}%0A` +
+        `*Luggage:* ${bagsCount || "0"} Bag(s) (${bagsSize || "N/A"})`;
+    }
     window.open(`https://wa.me/${businessInfo.whatsapp}?text=${msg}`, "_blank");
   };
 
@@ -220,8 +257,7 @@ export default function Hero() {
         }
         @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
         .vc:hover { transform: translateY(-8px); box-shadow: 0 22px 56px rgba(0,31,107,.14); border-color: var(--sky); }
-        .vc.sel { border-color: var(--navy); }
-
+        
         .vc__img-box { position: relative; aspect-ratio: 16/11; overflow: hidden; background: #dce7f5; }
         .vc__img { width:100%; height:100%; object-fit:cover; transition: transform .7s ease; }
         
@@ -237,7 +273,6 @@ export default function Hero() {
         .vc__name {
           font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900;
           color: #0c1a3d; margin-bottom: 2px;
-          word-wrap: break-word;
         }
         .vc__model { font-size: 9px; font-weight: 700; color: #9ca3af; letter-spacing: .08em; margin-bottom: 12px; }
 
@@ -251,27 +286,18 @@ export default function Hero() {
           background: rgba(0,90,205,.1);
           display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0;
         }
-        .sp__lbl { font-size: 8px; font-weight: 800; color: #94a3b8; text-transform: uppercase; }
         .sp__val { font-size: 10px; font-weight: 700; color: #1e293b; white-space: normal; word-break: break-word; }
-
-        .vc__note { font-size: 9px; color: #94a3b8; line-height: 1.4; font-style: italic; border-left: 2px solid var(--gold); padding-left: 8px; }
 
         .modal-overlay {
           position: fixed; inset: 0; background: rgba(12, 26, 61, 0.7);
           backdrop-filter: blur(6px); z-index: 1000;
           display: flex; align-items: center; justify-content: center; padding: 20px;
-          animation: fadeIn 0.3s ease;
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
         .modal-content {
           background: #fff; width: 100%; max-width: 600px; max-height: 90vh;
           border-radius: 24px; overflow-y: auto; position: relative;
           box-shadow: 0 30px 90px rgba(0,0,0,0.4);
-          animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        @keyframes slideIn { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
         .modal-close {
           position: absolute; top: 20px; right: 20px; width: 36px; height: 36px;
           background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -279,13 +305,6 @@ export default function Hero() {
         }
 
         .h-form { padding: 30px; border-top: 5px solid var(--gold); }
-        .h-form__hd { display: flex; align-items: center; gap: 14px; margin-bottom: 25px; }
-        .h-form__num {
-          width: 40px; height: 40px; border-radius: 50%; background: var(--navy);
-          color: #fff; font-weight: 900; display: flex; align-items: center; justify-content: center;
-        }
-        .h-form__title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: #0c1a3d; }
-
         .h-fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
         @media(max-width:480px){ .h-fgrid { grid-template-columns: 1fr; } }
 
@@ -298,8 +317,6 @@ export default function Hero() {
         .h-finput:focus { border-color: var(--navy); }
 
         .h-actions { display: flex; gap: 12px; margin-top: 10px; }
-        @media(max-width:480px){ .h-actions { flex-direction: column; } }
-
         .btn-wa {
           flex: 1; padding: 14px; background: linear-gradient(135deg, var(--navy), var(--navy-dark));
           color: #fff; border: none; border-radius: 12px; font-weight: 800; cursor: pointer;
@@ -309,7 +326,19 @@ export default function Hero() {
           padding: 14px; border: 2px solid var(--navy); border-radius: 12px;
           color: var(--navy); font-weight: 800; background: #fff; cursor: pointer;
         }
-        .h-trust { text-align: center; margin-top: 20px; font-size: 9px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Customize Tour Form Layout Styles */
+        .ct-container { display: flex; gap: 30px; flex-wrap: wrap; }
+        .ct-main { flex: 1.5; min-width: 300px; }
+        .ct-side { flex: 1; min-width: 250px; background: #f8fafc; padding: 24px; border-radius: 20px; border: 1px solid #edf2f7; }
+        .ct-row { display: flex; gap: 12px; margin-bottom: 12px; }
+        .ct-counter-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 15px; }
+        .ct-counter { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .ct-counter-ctrl { display: flex; align-items: center; border: 1.5px solid #dde5f4; border-radius: 20px; padding: 2px 10px; background: #fff; }
+        .ct-btn { border: none; background: none; font-size: 18px; cursor: pointer; color: var(--navy); padding: 0 5px; }
+        .ct-val { font-weight: 800; min-width: 20px; text-align: center; font-size: 14px; }
+        .dest-chip-box { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+        .dest-chip { background: var(--navy); color: white; padding: 4px 12px; border-radius: 6px; font-size: 11px; }
       `}</style>
 
       <section className="h-root">
@@ -318,16 +347,9 @@ export default function Hero() {
           <div className="h-banner__overlay" />
           <div className="h-banner__noise" />
           <div className="h-banner__inner">
-            <div className="h-pill">
-              <span className="h-pill__dot" />
-              Ahangama · Galle · Sri Lanka
-            </div>
-            <h1 className="h-title">
-              Choose Your <em>Ride</em>
-            </h1>
-            <p className="h-sub">
-              Select a category and your preferred vehicle<br />to start your journey in Sri Lanka.
-            </p>
+            <div className="h-pill"><span className="h-pill__dot" /> Ahangama · Galle · Sri Lanka</div>
+            <h1 className="h-title">Choose Your <em>Ride</em></h1>
+            <p className="h-sub">Select a category and your preferred vehicle<br />to start your journey.</p>
           </div>
           <div className="h-banner__arc" />
         </div>
@@ -348,108 +370,135 @@ export default function Hero() {
             </div>
 
             <div className="h-section">
-              <div className="h-section-hd">
-                <div>
-                  <p className="h-eyebrow">Step 1</p>
-                  <h2 className="h-section-title">Select Your Vehicle</h2>
-                  <p className="h-section-sub">Click on a vehicle to book now.</p>
-                </div>
-                <span className="h-chip">{filteredVehicles.length} Options</span>
-              </div>
+              {activeService === "instant" ? (
+                /* CUSTOM TOUR FORM (ID: "instant") from Screenshot 2026-05-05 212005.png */
+                <div className="ct-container">
+                  <div className="ct-main">
+                    <h2 className="h-section-title" style={{ marginBottom: '20px' }}>Travel Details</h2>
+                    
+                    <select className="h-finput" style={{ marginBottom: '12px' }} onChange={(e) => setTourType(e.target.value)}>
+                      <option value="">Choose a tour type</option>
+                      <option value="Sightseeing">Sightseeing Tour</option>
+                      <option value="Wildlife">Wildlife Tour</option>
+                      <option value="Cultural">Cultural Tour</option>
+                    </select>
 
-              <div className="h-grid">
-                {filteredVehicles.map((car, i) => (
-                  <div
-                    key={car.id}
-                    onClick={() => setSelectedVehicle(car)}
-                    className="vc"
-                    style={{ animationDelay: `${i * 85}ms` }}
-                  >
-                    <div className="vc__img-box">
-                      <img src={car.image} alt={car.label} className="vc__img" />
-                      {car.popular && <span className="vc-badge vc-badge--popular">Popular</span>}
-                      <span className="vc-badge vc-badge--tag">Premium</span>
+                    <div className="ct-row">
+                      {isLoaded && (
+                        <>
+                          <Autocomplete onLoad={ac => (pickupAutocompleteRef.current = ac)} onPlaceChanged={onPickupChanged}>
+                            <input type="text" placeholder="Pick Location" className="h-finput" />
+                          </Autocomplete>
+                          <Autocomplete onLoad={ac => (dropAutocompleteRef.current = ac)} onPlaceChanged={onDropChanged}>
+                            <input type="text" placeholder="Drop Location" className="h-finput" />
+                          </Autocomplete>
+                        </>
+                      )}
                     </div>
 
-                    <div className="vc__body">
-                      <h3 className="vc__name">{car.label}</h3>
-                      <p className="vc__model">{car.model}</p>
-                      <div className="vc__specs">
-                        <div className="sp">
-                          <div className="sp__icon">👥</div>
-                          <div><p className="sp__val">{car.capacity}</p></div>
+                    <div className="ct-row">
+                      <input type="date" className="h-finput" style={{ flex: 2 }} onChange={e => setDateTime(e.target.value)} />
+                      <select className="h-finput" style={{ flex: 1 }} value={tourDays} onChange={e => setTourDays(e.target.value)}>
+                        {[1,2,3,4,5,6,7,10,14].map(n => <option key={n} value={n}>Days {n}</option>)}
+                      </select>
+                    </div>
+
+                    <div className="ct-counter-group">
+                      {[
+                        { label: 'Adults', val: adults, set: setAdults },
+                        { label: 'Children', val: children, set: setChildren },
+                        { label: 'Infants', val: infants, set: setInfants },
+                        { label: 'Hand Luggage', val: handLuggage, set: setHandLuggage },
+                        { label: 'Check-in Luggage', val: checkInLuggage, set: setCheckInLuggage }
+                      ].map((item, idx) => (
+                        <div className="ct-counter" key={idx}>
+                          <span className="h-flabel">{item.label}</span>
+                          <div className="ct-counter-ctrl">
+                            <button className="ct-btn" onClick={() => item.set(Math.max(0, item.val - 1))}>-</button>
+                            <span className="ct-val">{item.val}</span>
+                            <button className="ct-btn" onClick={() => item.set(item.val + 1)}>+</button>
+                          </div>
                         </div>
-                        <div className="sp">
-                          <div className="sp__icon">🧳</div>
-                          <div><p className="sp__val">{car.baggage}</p></div>
-                        </div>
-                      </div>
-                      <p className="vc__note">{car.note}</p>
+                      ))}
+                    </div>
+                    <p style={{ fontSize: '10px', color: '#94a3b8', marginTop: '10px' }}>*Only children aged 12 years and under should be categorized as kids.</p>
+                    
+                    <button className="btn-wa" style={{ marginTop: '20px' }} onClick={() => handleWhatsApp(true)}>Confirm via WhatsApp</button>
+                  </div>
+
+                  <div className="ct-side">
+                    <h3 className="h-flabel" style={{ marginBottom: '12px', fontSize: '12px' }}>Add Destinations</h3>
+                    <div className="ct-row">
+                      {isLoaded && (
+                        <Autocomplete onLoad={ac => (destAutocompleteRef.current = ac)} onPlaceChanged={() => setTempDest(destAutocompleteRef.current.getPlace().name)}>
+                          <input 
+                            type="text" 
+                            placeholder="Add Destinations" 
+                            className="h-finput" 
+                            value={tempDest} 
+                            onChange={e => setTempDest(e.target.value)} 
+                          />
+                        </Autocomplete>
+                      )}
+                      <button onClick={addDestination} style={{ background: '#0c1a3d', color: '#fff', border: 'none', borderRadius: '10px', padding: '0 15px', cursor: 'pointer', fontWeight: 700 }}>Add</button>
+                    </div>
+                    <div className="dest-chip-box">
+                      {destinations.map((d, i) => <span key={i} className="dest-chip">{d}</span>)}
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ) : (
+                /* ORIGINAL VEHICLE GRID */
+                <>
+                  <div className="h-section-hd">
+                    <div>
+                      <p className="h-eyebrow">Step 1</p>
+                      <h2 className="h-section-title">Select Your Vehicle</h2>
+                    </div>
+                    <span className="h-chip">{filteredVehicles.length} Options</span>
+                  </div>
+
+                  <div className="h-grid">
+                    {filteredVehicles.map((car, i) => (
+                      <div key={car.id} onClick={() => setSelectedVehicle(car)} className="vc">
+                        <div className="vc__img-box">
+                          <img src={car.image} alt={car.label} className="vc__img" />
+                        </div>
+                        <div className="vc__body">
+                          <h3 className="vc__name">{car.label}</h3>
+                          <p className="vc__model">{car.model}</p>
+                          <div className="vc__specs">
+                            <div className="sp">
+                              <div className="sp__icon">👥</div>
+                              <div><p className="sp__val">{car.capacity}</p></div>
+                            </div>
+                            <div className="sp">
+                              <div className="sp__icon">🧳</div>
+                              <div><p className="sp__val">{car.baggage}</p></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
 
+        {/* ORIGINAL MODAL FOR VEHICLE BOOKINGS */}
         {selectedVehicle && (
           <div className="modal-overlay" onClick={() => setSelectedVehicle(null)}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <button className="modal-close" onClick={() => setSelectedVehicle(null)}>✕</button>
               <div className="h-form">
-                <div className="h-form__hd">
-                  <div className="h-form__num">2</div>
-                  <h2 className="h-form__title">Confirm {selectedVehicle.label}</h2>
-                </div>
-
+                <h2 className="h-form__title">Confirm {selectedVehicle.label}</h2>
                 <div className="h-fgrid">
-                  {isLoaded ? (
-                    <>
-                      <div className="h-fgroup">
-                        <label className="h-flabel">Pickup Location</label>
-                        <Autocomplete
-                          onLoad={(ac) => (pickupAutocompleteRef.current = ac)}
-                          onPlaceChanged={onPickupChanged}
-                        >
-                          <input type="text" placeholder="📍 Pickup point" className="h-finput" />
-                        </Autocomplete>
-                      </div>
-                      <div className="h-fgroup">
-                        <label className="h-flabel">Drop Location</label>
-                        <Autocomplete
-                          onLoad={(ac) => (dropAutocompleteRef.current = ac)}
-                          onPlaceChanged={onDropChanged}
-                        >
-                          <input type="text" placeholder="🏁 Destination" className="h-finput" />
-                        </Autocomplete>
-                      </div>
-                    </>
-                  ) : (
-                    <p style={{ gridColumn: 'span 2', textAlign: 'center', fontSize: '12px', color: '#94a3b8' }}>Loading Maps...</p>
-                  )}
-
-                  <div className="h-fgroup">
-                    <label className="h-flabel">Date &amp; Time</label>
-                    <input type="datetime-local" className="h-finput" onChange={(e) => setDateTime(e.target.value)} />
-                  </div>
-
-                  <div className="h-fgroup">
-                    <label className="h-flabel">Your Name</label>
-                    <input type="text" placeholder="👤 Full Name" className="h-finput" onChange={(e) => setPassengerName(e.target.value)} />
-                  </div>
+                   <input type="text" placeholder="Your Name" className="h-finput" onChange={e => setPassengerName(e.target.value)} />
+                   <input type="datetime-local" className="h-finput" onChange={e => setDateTime(e.target.value)} />
                 </div>
-
-                <div className="h-actions">
-                  <button className="btn-wa" onClick={handleWhatsApp}>
-                    Confirm via WhatsApp
-                  </button>
-                  <button className="btn-call" onClick={handleCall}>
-                    Call Us
-                  </button>
-                </div>
-
-                <p className="h-trust">✦ Safe · Reliable · 24/7 Service ✦</p>
+                <button className="btn-wa" onClick={() => handleWhatsApp(false)}>Confirm via WhatsApp</button>
               </div>
             </div>
           </div>

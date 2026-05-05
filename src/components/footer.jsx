@@ -19,7 +19,7 @@ const Footer = () => {
               Providing secure travel experiences for the international community in Sri Lanka for over 10 years.
             </p>
             <div className="flex space-x-4">
-              <a href="https://www.facebook.com/share/17zbhKB1mA/?mibextid=wwXIfr" 
+              <a href="https://www.instagram.com/taxiserviceahangama?igsh=MWV2YWtvZG9qbnI2bw%3D%3D&utm_source=qr" 
                  className="p-2 bg-neutral-900 rounded-full hover:bg-[#005acd] transition-colors border border-neutral-800">
                 <Facebook size={18} />
               </a>

@@ -2,6 +2,7 @@ import React from "react";
 import { businessInfo } from "../data/vehicles";
 
 const packages = [
+  // --- SAFARI PACKAGES ---
   {
     id: "yala",
     category: "safari",
@@ -11,7 +12,8 @@ const packages = [
     timing: "Morning or Afternoon (6:00 AM – 6:00 PM)",
     duration: "2.5 - 3 Hours Travel",
     price: "All-Inclusive",
-    highlights: ["Private 4x4 Jeep", "Park Entry Tickets", "English Guide", "Island-wide Pickup","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
+    highlights: ["Free water bottle", "Comfortable A/C car or van with pickup & drop-off", "Private 4x4 safari jeep", "Safari entrance tickets", "Experienced safari jeep driver (English Guide)", "Expressway tolls", "Parking and vehicle expenses"],
+    excluding: ["Meals", "Personal / private expenses"],
     features: ["Private AC Transport", "Chilled Water", "Unlimited Photo Stops"]
   },
   {
@@ -23,19 +25,35 @@ const packages = [
     timing: "Flexible Sessions (7:00 AM or 11:30 AM)",
     duration: "1.5 - 2.5 Hours Travel",
     price: "Family Choice",
-    highlights: ["Baby Elephant Feeding", "3-Hour Private Safari", "Transit Home Entry", "Door-to-door Service","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
+    highlights: ["Free water bottle", "Comfortable A/C car or van with pickup & drop-off", "Elephant Transit Home ticket", "Private 4x4 safari jeep", "Safari entrance tickets", "Experienced safari jeep driver (English Guide)", "Expressway tolls", "Parking and vehicle expenses"],
+    excluding: ["Meals", "Personal / private expenses"],
     features: ["Private AC Transport", "Expert Tracker", "Snack Breaks Included"]
   },
+  {
+    id: "mirissa-whale",
+    category: "safari",
+    title: "Mirissa Whale Watching",
+    subtitle: "Ocean Giants & Scenic Hills",
+    image: "https://images.unsplash.com/photo-1568430462989-44163eb1752f?q=80&w=2070&auto=format&fit=crop",
+    timing: "Strict Start: 06:00 AM",
+    duration: "Morning Session",
+    price: "Ocean Choice",
+    highlights: ["Blue Whale Watching", "Coconut Tree Hill", "Luxury Boat Session", "Harbor Fees", "Free water bottle", "Expressway tolls & Parking"],
+    excluding: ["Main Meals", "Personal snorkeling equipment rentals"],
+    features: ["Private Transport", "Life Jackets", "Harbor Taxes Included"]
+  },
+  // --- TOUR PACKAGES ---
   {
     id: "galle-city",
     category: "tour",
     title: "Galle City & Coastal Heritage",
     subtitle: "16th-Century Dutch Fort & Turtles",
-    image: "https://www.archaeology.lk/wp-content/uploads/2020/11/galle_fort_sri_lanka_aerial_view_buddhika_dilshan.jpg", 
+    image: "https://www.archaeology.lk/wp-content/uploads/2020/11/galle_fort_sri_lanka_aerial_view_buddhika_dilshan.jpg",
     timing: "08:30 AM or 09:00 AM",
     duration: "Flexible",
     price: "Coastal",
-    highlights: ["Galle Dutch Fort", "Turtle Hatchery", "Stilt Fishermen", "Jungle Beach","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
+    highlights: ["Galle Dutch Fort", "Turtle Hatchery", "Stilt Fishermen", "Jungle Beach", "Free water bottle", "Pickup & drop-off included", "Expressway tolls & Parking"],
+    excluding: ["Meals", "Personal / private expenses"],
     features: ["Private AC Car/Van", "Authentic Tuk-Tuk Option", "Entry Fees Included"]
   },
   {
@@ -47,20 +65,9 @@ const packages = [
     timing: "05:30 AM – 06:00 AM",
     duration: "Full Day Trip",
     price: "Highland",
-    highlights: ["Nine Arch Bridge", "Little Adam’s Peak", "Ravana Waterfall", "Ella Town","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
+    highlights: ["Nine Arch Bridge", "Little Adam’s Peak", "Ravana Waterfall", "Ella Town", "Free water bottle", "Expressway tolls & Parking"],
+    excluding: ["Meals", "Personal / private expenses"],
     features: ["Private AC Transport", "Expert Driver-Guide", "Highway Tolls Included"]
-  },
-  {
-    id: "mirissa-whale",
-    category: "safari",
-    title: "Mirissa Whale Watching",
-    subtitle: "Ocean Giants & Scenic Hills",
-    image: "https://images.unsplash.com/photo-1568430462989-44163eb1752f?q=80&w=2070&auto=format&fit=crop",
-    timing: "Strict Start: 06:00 AM",
-    duration: "Morning Session",
-    price: "Ocean Choice",
-    highlights: ["Blue Whale Watching", "Coconut Tree Hill", "Luxury Boat Session", "Harbor Fees","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
-    features: ["Private Transport", "Life Jackets", "Harbor Taxes Included"]
   },
   {
     id: "madu",
@@ -71,7 +78,8 @@ const packages = [
     timing: "08:30 AM – 03:30 PM",
     duration: "2-Hour Boat Safari",
     price: "Relaxing",
-    highlights: ["64-Island Boat Tour", "Fish Massage", "Cinnamon Island", "Moonstone Mines","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
+    highlights: ["64-Island Boat Tour", "Fish Massage", "Cinnamon Island", "Moonstone Mines", "Free water bottle", "Pickup & drop-off included"],
+    excluding: ["Lunch", "Beverages", "Personal tips"],
     features: ["Private Transport", "Fish Massage Entry", "Tuk-Tuk Option Available"]
   },
   {
@@ -83,7 +91,8 @@ const packages = [
     timing: "Recommended: 09:00 AM",
     duration: "Half Day",
     price: "New Experience",
-    highlights: ["Handunugoda Tea Estate", "Koggala Lake Boat Safari", "Virgin White Tea Tasting", "Folk Museum","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
+    highlights: ["Handunugoda Tea Estate", "Koggala Lake Boat Safari", "Virgin White Tea Tasting", "Folk Museum", "Free water bottle", "Pickup & drop-off included"],
+    excluding: ["Food", "Personal purchases at Tea Shop", "Museum entry fees"],
     features: ["Private Transport", "Estate Tour Included", "Lake Boat Safari"]
   },
   {
@@ -95,101 +104,310 @@ const packages = [
     timing: "Best Start: 06:00 AM",
     duration: "Full Day Trekking",
     price: "Adventure",
-    highlights: ["Guided Jungle Trek", "Endemic Bird Watching", "Natural Waterfalls", "Rare Flora","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
+    highlights: ["Guided Jungle Trek", "Endemic Bird Watching", "Natural Waterfalls", "Rare Flora", "Free water bottle", "Pickup & drop-off included"],
+    excluding: ["Meals", "Personal / private expenses"],
     features: ["Forest Permits Included", "Professional Guide", "AC Van Transport"]
+  },
+  {
+    id: "tour-01",
+    category: "tour",
+    title: "Highland Escape",
+    subtitle: "Misty Hills & Tea Estates",
+    image: "https://images.unsplash.com/photo-1546708973-b339540b5162?q=80&w=2000",
+    timing: "03 Days / 02 Nights",
+    duration: "Multi-Day Journey",
+    price: "Custom",
+    highlights: [
+      "Day 01: Ella - Rawana Falls & Little Adam’s Peak (Sunset View)",
+      "Day 02: Nuwara Eliya - Nine Arch Bridge, Scenic Train Ride (Optional), & Tea Factory",
+      "Day 03: Final Destination - Gregory Lake & Victoria Park",
+      "Private AC Transport",
+      "Fuel & Highway Tolls included"
+    ],
+    excluding: ["Hotels", "Meals", "Entry Tickets"],
+    features: ["Expert Driver-Guide", "Scenic Highland Route", "Flexible Pace"]
+  },
+  {
+    id: "tour-02",
+    category: "tour",
+    title: "The Cultural Quick Look",
+    subtitle: "Ancient Cities & Sacred Temples",
+    image: "https://images.unsplash.com/photo-1588598116719-c8ad9846a34b?q=80&w=2000",
+    timing: "03 Days / 02 Nights",
+    duration: "Multi-Day Journey",
+    price: "Custom",
+    highlights: [
+      "Day 01: Kandy - Temple of the Sacred Tooth Relic & Cultural Dance Show",
+      "Day 02: Sigiriya - Royal Botanical Gardens (Peradeniya) & Dambulla Cave Temple",
+      "Day 03: Return - Sigiriya Lion Rock Fortress or Pidurangala Rock",
+      "Private AC Transport",
+      "Expert Driver-Guide included"
+    ],
+    excluding: ["Hotels", "Meals", "Entry Tickets"],
+    features: ["Cultural Heritage Sites", "Private AC Transport", "Professional Guidance"]
+  },
+  {
+    id: "tour-03",
+    category: "tour",
+    title: "Scenic Hills & Spiritual Tower",
+    subtitle: "Mountains, Temples & 360-Degree Views",
+    image: "https://images.unsplash.com/photo-1625736342938-23955375752c?q=80&w=2000",
+    timing: "04 Days / 03 Nights",
+    duration: "Multi-Day Journey",
+    price: "Custom",
+    highlights: [
+      "Day 01: Ella - Rawana Falls & Nine Arch Bridge",
+      "Day 02: Kandy - Little Adam’s Peak & Scenic drive via mountains",
+      "Day 03: Ambuluwawa - Temple of the Tooth & 360-degree Ambuluwawa Tower",
+      "Day 04: Return - Spice Garden & Gem Museum",
+      "Multi-day Transport & Highway/Parking fees included"
+    ],
+    excluding: ["Hotels", "Meals", "Entry Tickets"],
+    features: ["Mountain Scenery", "Ambuluwawa Tower Visit", "Gem & Spice Tours"]
+  },
+  {
+    id: "tour-04",
+    category: "tour",
+    title: "Wildlife & Highland Trail",
+    subtitle: "Elephants, Waterfalls & Iconic Trains",
+    image: "https://images.unsplash.com/photo-1549144469-f1931811776b?q=80&w=2000",
+    timing: "04 Days / 03 Nights",
+    duration: "Multi-Day Journey",
+    price: "Custom",
+    highlights: [
+      "Day 01: Udawalawe - Elephant Transit Home & Afternoon Safari",
+      "Day 02: Nuwara Eliya - Tea Plantations & Ramboda Waterfalls",
+      "Day 03: Ella - Gregory Lake & Iconic Train Ride (Nanu Oya to Ella)",
+      "Day 04: Return - Nine Arch Bridge & Rawana Falls",
+      "Private AC Transport included"
+    ],
+    excluding: ["Safari Jeep Fees", "Hotels", "Meals", "Entry Tickets"],
+    features: ["Wildlife Safari", "Famous Train Journey", "Tea Country Scenery"]
+  },
+  {
+    id: "tour-05",
+    category: "tour",
+    title: "Ancient Kingdoms & Wildlife",
+    subtitle: "History, Village Life & Safari",
+    image: "https://images.unsplash.com/photo-1582236166597-203875344865?q=80&w=2000",
+    timing: "05 Days / 04 Nights",
+    duration: "Multi-Day Journey",
+    price: "Custom",
+    highlights: [
+      "Day 01: Ella - Rawana Falls & Nine Arch Bridge",
+      "Day 02: Sigiriya - Little Adam's Peak & Travel to Cultural Triangle",
+      "Day 03: Sigiriya Exploration - Rock Fortress, Village Tour & Minneriya Safari",
+      "Day 04: Kandy - Dambulla Cave Temple & Spice Garden Matale",
+      "Day 05: Return - Temple of the Tooth & Peradeniya Gardens"
+    ],
+    excluding: ["Hotels", "Meals", "Entry Tickets"],
+    features: ["Cultural Triangle Tour", "Authentic Village Experience", "Sigiriya Rock Fortress"]
+  },
+  {
+    id: "tour-06",
+    category: "tour",
+    title: "Adventure & Tea Country",
+    subtitle: "Rafting, Waterfalls & Mountain Trails",
+    image: "https://images.unsplash.com/photo-1590424600216-9ca890259f8a?q=80&w=2000",
+    timing: "05 Days / 04 Nights",
+    duration: "Multi-Day Journey",
+    price: "Custom",
+    highlights: [
+      "Day 01: Kitulgala - White Water Rafting & River Adventure",
+      "Day 02: Nuwara Eliya - St. Clair’s and Devon Waterfalls",
+      "Day 03: Ella - Tea Factory & Hill Country Train Journey",
+      "Day 04: Ella Exploration - Nine Arch Bridge & Little Adam's Peak",
+      "Day 05: Return - Rawana Falls"
+    ],
+    excluding: ["Adventure Activity Fees", "Hotels", "Meals", "Entry Tickets"],
+    features: ["Water Rafting Adventure", "Hill Country Train", "Waterfall Photography"]
+  },
+  {
+    id: "tour-07",
+    category: "tour",
+    title: "The Grand Ceylon Adventure",
+    subtitle: "Complete Hill Country Experience",
+    image: "https://images.unsplash.com/photo-1563297441-394c867f62e8?q=80&w=2000",
+    timing: "06 Days / 05 Nights",
+    duration: "Multi-Day Journey",
+    price: "Custom",
+    highlights: [
+      "Day 01: Ella - Rawana Falls & Nine Arch Bridge",
+      "Day 02: Nuwara Eliya - Train Journey & Gregory Lake",
+      "Day 03: Kandy - Tea Factory & Ramboda Falls",
+      "Day 04: Sigiriya - Temple of the Tooth & Dambulla Caves",
+      "Day 05: Sigiriya/Matale - Sigiriya Rock, Pidurangala & Spice Garden",
+      "Day 06: Final Drop-off"
+    ],
+    excluding: ["Hotels", "Meals", "Entry Tickets"],
+    features: ["Grand Circular Route", "Comprehensive Site Visits", "Private AC Transport"]
+  },
+  {
+    id: "tour-09",
+    category: "tour",
+    title: "Heritage & Wildlife Expedition",
+    subtitle: "Safaris & Ancient Cities",
+    image: "https://images.unsplash.com/photo-1578326457399-3b34dbbf23b8?q=80&w=2000",
+    timing: "08 Days / 07 Nights",
+    duration: "Multi-Day Journey",
+    price: "Custom",
+    highlights: [
+      "Day 01: Yala Arrival",
+      "Day 02: Yala Safari & Ella Transfer",
+      "Day 03: Ella Highlights (Train/Nine Arch Bridge)",
+      "Day 04: Kandy Transfer",
+      "Day 05: Kandy City & Temple",
+      "Day 06: Sigiriya Transfer",
+      "Day 07: Sigiriya Rock & Polonnaruwa Ancient City",
+      "Day 08: Final Drop-off"
+    ],
+    excluding: ["Safari Jeep Fees", "Hotels", "Meals", "Entry Tickets"],
+    features: ["Dual Safari Opportunity", "Ancient City Heritage", "Complete Regional Tour"]
+  },
+  {
+    id: "tour-10",
+    category: "tour",
+    title: "The Ultimate Sri Lankan Journey",
+    subtitle: "Full Island Exploration",
+    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2000",
+    timing: "10 Days / 09 Nights",
+    duration: "Multi-Day Journey",
+    price: "Custom",
+    highlights: [
+      "Day 01: Udawalawe (Safari)",
+      "Day 02: Ella Transfer",
+      "Day 03: Ella Highlights",
+      "Day 04: Nuwara Eliya (Train Journey)",
+      "Day 05: Kandy Transfer",
+      "Day 06: Kandy & Ambuluwawa",
+      "Day 07: Sigiriya (Dambulla)",
+      "Day 08: Sigiriya Rock & Village Tour",
+      "Day 09: Negombo (Beach relaxation)",
+      "Day 10: Airport Drop-off"
+    ],
+    excluding: ["Hotels", "Meals", "Entry Tickets"],
+    features: ["Complete Tour", "Wildlife, Hill Country & Beach", "All Major Landmarks"]
   }
 ];
 
 export default function Packages() {
   const handleBooking = (pkg) => {
-    const msg = 
+    const msg =
       `Hello! I'm interested in the *${pkg.title}*.%0A%0A` +
       `*Type:* ${pkg.category.toUpperCase()}%0A` +
       `*Timing:* ${pkg.timing}%0A` +
       `Please provide more details and availability.`;
+
     window.open(`https://wa.me/${businessInfo.whatsapp}?text=${msg}`, "_blank");
   };
+
+  const safariPackages = packages.filter(pkg => pkg.category === "safari");
+  const tourPackages = packages.filter(pkg => pkg.category === "tour");
+
+  const PackageCard = ({ pkg }) => (
+    <div key={pkg.id} className="vc" style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <div className="vc__img-box" style={{ height: "240px" }}>
+        <img src={pkg.image} alt={pkg.title} className="vc__img" />
+        <span className="vc-badge vc-badge--tag" style={{ background: "var(--navy)", color: "#fff", textTransform: 'capitalize' }}>
+          {pkg.category}
+        </span>
+        <span className="vc-badge" style={{ bottom: "10px", right: "10px", background: "rgba(0,0,0,0.6)", color: "#fff", fontSize: "10px" }}>
+          {pkg.duration}
+        </span>
+      </div>
+
+      <div className="vc__body" style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+        <h3 className="vc__name" style={{ fontSize: "1.5rem" }}>{pkg.title}</h3>
+        <p className="vc__model" style={{ color: "var(--gold)", marginBottom: "15px" }}>{pkg.subtitle}</p>
+
+        <div style={{ marginBottom: "15px" }}>
+          {pkg.highlights.map((h, i) => (
+            <div key={i} style={{ fontSize: "12px", color: "#4b5563", marginBottom: "6px", display: "flex", alignItems: "center", gap: "8px" }}>
+              <span style={{ color: "#16a34a" }}>✓</span> {h}
+            </div>
+          ))}
+        </div>
+
+        <div style={{ marginBottom: "20px", padding: "10px", background: "#fff5f5", borderRadius: "10px" }}>
+          <p style={{ fontSize: "10px", fontWeight: "800", color: "#c53030", textTransform: "uppercase", marginBottom: "5px" }}>
+            Not Included:
+          </p>
+          {pkg.excluding.map((ex, i) => (
+            <div key={i} style={{ fontSize: "11px", color: "#7f8c8d", marginBottom: "4px", display: "flex", alignItems: "center", gap: "8px" }}>
+              <span style={{ color: "#c53030" }}>✕</span> {ex}
+            </div>
+          ))}
+        </div>
+
+        <div className="vc__specs" style={{ marginTop: "auto" }}>
+          <div className="sp">
+            <div className="sp__icon">⏰</div>
+            <div>
+              <p className="sp__lbl">Best Time</p>
+              <p className="sp__val" style={{ fontSize: "10px" }}>{pkg.timing}</p>
+            </div>
+          </div>
+          <div className="sp">
+            <div className="sp__icon">💎</div>
+            <div>
+              <p className="sp__lbl">Inclusion</p>
+              <p className="sp__val">All-Inclusive</p>
+            </div>
+          </div>
+        </div>
+
+        <button className="btn-wa" onClick={() => handleBooking(pkg)} style={{ marginTop: "15px", width: "100%" }}>
+          Book This Adventure
+        </button>
+      </div>
+    </div>
+  );
 
   return (
     <section id="packages" className="h-root" style={{ padding: "80px 20px" }}>
       <div style={{ maxWidth: "1160px", margin: "0 auto" }}>
         
-        {/* Header */}
+        {/* Main Header */}
         <div className="h-section-hd" style={{ marginBottom: "50px", textAlign: "center", justifyContent: "center" }}>
           <div style={{ maxWidth: "700px" }}>
             <p className="h-eyebrow" style={{ justifyContent: "center" }}>Curated Experiences</p>
-            <h2 className="h-section-title" style={{ fontSize: "2.8rem" }}>Our Exclusive <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Packages</em></h2>
-            <p className="h-section-sub">All-inclusive family adventures with hassle-free island-wide pickup and drop-off.</p>
+            <h2 className="h-section-title" style={{ fontSize: "2.8rem" }}>
+              Our Exclusive <em style={{ color: "var(--gold)", fontStyle: "italic" }}>Packages</em>
+            </h2>
           </div>
         </div>
 
-        {/* Packages Grid */}
-        <div className="h-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))" }}>
-          {packages.map((pkg) => (
-            <div key={pkg.id} className="vc" style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-              
-              {/* Package Image */}
-              <div className="vc__img-box" style={{ height: "240px" }}>
-                <img src={pkg.image} alt={pkg.title} className="vc__img" />
-                <span className="vc-badge vc-badge--tag" style={{ background: "var(--navy)", color: "#fff" }}>
-                  {pkg.category}
-                </span>
-                <span className="vc-badge" style={{ bottom: "10px", right: "10px", background: "rgba(0,0,0,0.6)", color: "#fff", fontSize: "10px" }}>
-                  {pkg.duration}
-                </span>
-              </div>
-
-              {/* Package Content */}
-              <div className="vc__body" style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-                <h3 className="vc__name" style={{ fontSize: "1.5rem" }}>{pkg.title}</h3>
-                <p className="vc__model" style={{ color: "var(--gold)", marginBottom: "15px" }}>{pkg.subtitle}</p>
-                
-                <div style={{ marginBottom: "20px" }}>
-                   {pkg.highlights.map((h, i) => (
-                     <div key={i} style={{ fontSize: "12px", color: "#4b5563", marginBottom: "6px", display: "flex", alignItems: "center", gap: "8px" }}>
-                        <span style={{ color: "var(--navy)" }}>✓</span> {h}
-                     </div>
-                   ))}
-                </div>
-
-                <div className="vc__specs" style={{ marginTop: "auto" }}>
-                  <div className="sp">
-                    <div className="sp__icon">⏰</div>
-                    <div>
-                      <p className="sp__lbl">Best Time</p>
-                      <p className="sp__val" style={{ fontSize: "10px" }}>{pkg.timing}</p>
-                    </div>
-                  </div>
-                  <div className="sp">
-                    <div className="sp__icon">💎</div>
-                    <div>
-                      <p className="sp__lbl">Inclusion</p>
-                      <p className="sp__val">All-Inclusive</p>
-                    </div>
-                  </div>
-                </div>
-
-                <button className="btn-wa" onClick={() => handleBooking(pkg)} style={{ marginTop: "15px", width: "100%" }}>
-                   Book This Adventure
-                </button>
-              </div>
-            </div>
-          ))}
+        {/* --- SAFARI PACKAGES SECTION --- */}
+        <h3 style={{ fontSize: "2rem", marginBottom: "30px", borderLeft: "5px solid var(--gold)", paddingLeft: "15px", color: "var(--navy-deep)" }}>
+          Safari Packages
+        </h3>
+        <div className="h-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", marginBottom: "80px" }}>
+          {safariPackages.map((pkg) => <PackageCard key={pkg.id} pkg={pkg} />)}
         </div>
 
-        {/* Travel Note Banner */}
-        <div style={{ 
-            marginTop: "60px", 
-            padding: "30px", 
-            borderRadius: "24px", 
-            background: "var(--gold-light)", 
-            border: "1px dashed var(--gold)",
-            textAlign: "center"
+        {/* --- TOUR PACKAGES SECTION --- */}
+        <h3 style={{ fontSize: "2rem", marginBottom: "30px", borderLeft: "5px solid var(--gold)", paddingLeft: "15px", color: "var(--navy-deep)" }}>
+          Tour Packages
+        </h3>
+        <div className="h-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))" }}>
+          {tourPackages.map((pkg) => <PackageCard key={pkg.id} pkg={pkg} />)}
+        </div>
+
+        {/* Travel Note */}
+        <div style={{
+          marginTop: "60px",
+          padding: "30px",
+          borderRadius: "24px",
+          background: "var(--gold-light)",
+          border: "1px dashed var(--gold)",
+          textAlign: "center"
         }}>
-           <h4 style={{ color: "var(--navy-deep)", fontWeight: "800", marginBottom: "10px", textTransform: "uppercase", fontSize: "12px", letterSpacing: "1px" }}>⚠️ Important Travel Note</h4>
-           <p style={{ fontSize: "13px", color: "#5a6b8a", maxWidth: "800px", margin: "0 auto", lineHeight: "1.6" }}>
-            Traffic & weather conditions in Sri Lanka can change quickly. We recommend starting your journey 30 minutes earlier to ensure a relaxed, stress-free wildlife encounter!
-           </p>
+          <h4 style={{ color: "var(--navy-deep)", fontWeight: "800", marginBottom: "10px", textTransform: "uppercase", fontSize: "12px", letterSpacing: "1px" }}>
+            ⚠️ Important Travel Note
+          </h4>
+          <p style={{ fontSize: "13px", color: "#5a6b8a", maxWidth: "800px", margin: "0 auto", lineHeight: "1.6" }}>
+            Traffic & weather conditions in Sri Lanka can change quickly. We recommend starting your journey 30 minutes earlier.
+          </p>
         </div>
       </div>
     </section>

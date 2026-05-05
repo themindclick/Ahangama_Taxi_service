@@ -5,7 +5,7 @@ export const vehicles = [
     id: "budget",
     label: "Budget",
     model: "Suzuki Wagon R or similar",
-    categories: ["rental", "airport", "instant"],
+    categories: ["rental", "airport",],
     capacity: "Up to 2 Passengers",
     baggage: "2 Small Luggage",
     note: "Vehicle capacity may vary based on the size and quantity of passenger luggage.",
@@ -17,7 +17,7 @@ export const vehicles = [
     id: "sedan",
     label: "Sedan",
     model: "Toyota Prius / Honda Fit Shuttle GP2",
-    categories: ["airport", "instant"],
+    categories: ["airport", ],
     capacity: "2 - 3 Passengers",
     baggage: "2 - 3 Medium & Large Luggage",
     note: "Vehicle capacity may vary based on the size and quantity of passenger luggage.",
@@ -29,7 +29,7 @@ export const vehicles = [
     id: "medium-van",
     label: "Medium Van",
     model: "Toyota Noah",
-    categories: ["airport", "instant"],
+    categories: ["airport", ],
     capacity: "2 - 5 Passengers",
     baggage: "3 - 5 Medium & Large Luggage",
     note: "Vehicle capacity may vary based on the size and quantity of passenger luggage.",
@@ -41,7 +41,7 @@ export const vehicles = [
     id: "van-big",
     label: "Van Big",
     model: "Toyota KDH Flat Roof",
-    categories: ["airport", "instant"],
+    categories: ["airport", ],
     capacity: "2 - 6 Passengers",
     baggage: "6 - 7 Large Luggage",
     note: "Vehicle capacity may vary based on the size and quantity of passenger luggage.",
@@ -53,7 +53,7 @@ export const vehicles = [
     id: "van-bigger",
     label: "Van Bigger",
     model: "Toyota KDH High Roof",
-    categories: ["airport", "instant"],
+    categories: ["airport", ],
     capacity: "2 - 10 Passengers",
     baggage: "8 - 10 Large Luggage",
     note: "Vehicle capacity may vary based on the size and quantity of passenger luggage.",
@@ -77,7 +77,7 @@ export const vehicles = [
     id: "tuktuk",
     label: "Tuk Tuk",
     model: "Bajaj RE",
-    categories: ["rental", "instant"],
+    categories: ["rental", ],
     capacity: "3 Passengers",
     baggage: "1 Small Bag",
     note: "Local vibes.",
@@ -96,6 +96,6 @@ export const serviceTypes = [
 ];
 
 export const businessInfo = {
-  whatsapp: "94719916072",
+  whatsapp: "94773744432",
   googleApiKey: "AIzaSyBmORHcnKutmtalu-EkLoioNuQVKza-6DE" // Replace with your actual key
 };
