@@ -172,7 +172,7 @@ const Reviews = () => {
         {/* Buttons */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-12">
           <a
-            href="https://www.google.com/search?q=taxi+service+ahangama&sca_esv=f20504b6fbd26699&sxsrf=ANbL-n5Y-HJGaY9tRvYouA2P0eCVhD0UHw:1777728227942&udm=1&lsack=4_r1aeidOZeqseMP3IDwuQc&sa=X&ved=2ahUKEwiom6Lc2ZqUAxUXVWwGHVwAPHcQjGp6BAgpEAA&biw=1707&bih=811&dpr=1.13#sv=CAwS9gIKBmxjbF9wdhI2CgNwdnESL0NnMHZaeTh4TVc0d09EZzBjbk0ySWhJS0RIUmhlR2tnYzJWeWRtbGpaUkFDR0FNEt8BCgNscWkS1wFDaFYwWVhocElITmxjblpwWTJVZ1lXaGhibWRoYldGSWhyNkpoSUcwZ0lBSVdpRVFBQkFCR0FBWUFSZ0NJaFYwWVhocElITmxjblpwWTJVZ1lXaGhibWRoYldHU0FReDBZWGhwWDNObGNuWnBZMldhQVVSRGFUbEVVVlZzVWxGVlRuWmFSVTV2WkVoc2FsSnFiSFpVTW5SNlRURmFkRlZVVW1oaVJVcDNXa1JLVDJWc1NuUlNiWEJYVFVaS2MxVXhWblprUjFKV1VsSkJRdm9CQkFnQUVFURIiCgN0YnMSG2xyZjohMm0xITFlMiEybTEhMWUzITNzSUFFPRIaCgFxEhV0YXhpIHNlcnZpY2UgYWhhbmdhbWEaEmxvY2FsLXBsYWNlLXZpZXdlchgKIPHciu4B"
+            href="https://www.google.com/search?q=ahangama+taxi+service&sca_esv=b7b28de9b2affd5c&sxsrf=ANbL-n5xxrSygQhaeYqjJ4hr950LfXrfyQ:1777993593711&udm=1&lsack=eQf6ad7uKpC02roPsbnMiQc&sa=X&ved=2ahUKEwiej8OktqKUAxUQmlYBHbEcM3EQjGp6BAgfEAE#sv=CAwS9gIKBmxjbF9wdhI2CgNwdnESL0NnMHZaeTh4TVc0d09EZzBjbk0ySWhJS0RIUmhlR2tnYzJWeWRtbGpaUkFDR0FNEt8BCgNscWkS1wFDaFZoYUdGdVoyRnRZU0IwWVhocElITmxjblpwWTJWSWhyNkpoSUcwZ0lBSVdpRVFBUkFDR0FBWUFSZ0NJaFZoYUdGdVoyRnRZU0IwWVhocElITmxjblpwWTJXU0FReDBZWGhwWDNObGNuWnBZMldhQVVSRGFUbEVVVlZzVWxGVlRuWmFSVTV2WkVoc2FsSnFiSFpVTW5SNlRURmFkRlZVVW1oaVJVcDNXa1JLVDJWc1NuUlNiWEJYVFVaS2MxVXhWblprUjFKV1VsSkJRdm9CQkFnQUVFURIiCgN0YnMSG2xyZjohMm0xITFlMiEybTEhMWUzITNzSUFFPRIaCgFxEhVhaGFuZ2FtYSB0YXhpIHNlcnZpY2UaEmxvY2FsLXBsYWNlLXZpZXdlchgKINLY36QK"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full max-w-xs px-6 py-3 border-2 border-[#EAB875] text-[#EAB875] font-bold rounded-lg text-center hover:bg-[#EAB875] hover:text-white transition-all shadow-md"
@@ -180,7 +180,7 @@ const Reviews = () => {
             Write a Review
           </a>
           <a
-            href="https://share.google/FnzNHxLyikDyFWYGC"
+            href="https://share.google/ah7u8FmAneK58fzLo"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full max-w-xs px-6 py-3 bg-[#005acd] text-white font-bold rounded-lg text-center hover:bg-[#003d8f] transition-all shadow-lg"
