@@ -47,59 +47,43 @@ _Sent via taxiserviceahangama.lk_
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700;800&display=swap');
 
         :root {
-          --gold:       #EAB875;
-          --sky:        #C3E7F1;
-          --navy:       #005acd;
-          --navy-dark:  #003d8f;
-          --navy-deep:  #001f6b;
+          --gold:      #EAB875;
+          --sky:       #C3E7F1;
+          --navy:      #005acd;
+          --navy-dark: #003d8f;
+          --navy-deep: #001f6b;
         }
 
         .bk-root { font-family: 'DM Sans', sans-serif; }
 
-        /* ── Section Scaled Up ── */
+        /* ── Section ── */
         .bk-section {
-          position: relative; 
-          overflow: hidden;
-          /* Increased padding from 100px to 160px for a larger feel */
-          padding: 160px 20px 180px; 
-          /* Gradient made more subtle/faded to reduce blue intensity */
-          background: linear-gradient(165deg, #f8fafc 0%, #f1f5f9 40%, #e2e8f0 100%);
+          position: relative; overflow: hidden;
+          padding: 100px 20px 110px;
+          background: linear-gradient(160deg, #f0f4fa 0%, #e6edf8 50%, #dce8f5 100%);
         }
 
-        /* Decorative blobs — Faded and Scaled Up */
+        /* Decorative blobs */
         .bk-blob {
-          position: absolute; 
-          border-radius: 50%;
-          /* Increased blur for a softer fade */
-          filter: blur(110px); 
-          pointer-events: none;
+          position: absolute; border-radius: 50%;
+          filter: blur(80px); pointer-events: none;
         }
-
         .bk-blob--1 {
-          /* Scaled up size from 520px to 750px */
-          width: 750px; height: 750px; 
-          top: -250px; right: -180px;
-          /* Reduced opacity from .07 to .035 to fade the blue */
-          background: rgba(0,90,205, .035); 
+          width: 520px; height: 520px; top: -120px; right: -140px;
+          background: rgba(0,90,205,.07);
         }
-
         .bk-blob--2 {
-          /* Scaled up size from 400px to 600px */
-          width: 600px; height: 600px; 
-          bottom: -150px; left: -120px;
-          background: rgba(234,184,117, .09);
+          width: 400px; height: 400px; bottom: -100px; left: -120px;
+          background: rgba(234,184,117,.12);
         }
-
         .bk-blob--3 {
-          width: 380px; height: 380px; 
-          top: 35%; left: 50%;
-          background: rgba(195,231,241, .15);
+          width: 260px; height: 260px; top: 40%; left: 55%;
+          background: rgba(195,231,241,.2);
         }
 
-        /* Geometric pattern overlay — More transparent */
+        /* Geometric pattern overlay */
         .bk-pattern {
-          position: absolute; inset: 0; 
-          opacity: .012; 
+          position: absolute; inset: 0; opacity: .025;
           background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23005acd' fill-rule='evenodd'%3E%3Cpath d='M0 0h4v4H0zm8 0h4v4H8zm8 0h4v4h-4zm8 0h4v4h-4zm8 0h4v4h-4zm8 0h4v4h-4zM0 8h4v4H0zm8 8h4v4H8zm8 8h4v4h-4zm8 8h4v4h-4zm8 8h4v4h-4z'/%3E%3C/g%3E%3C/svg%3E");
         }
 
@@ -108,12 +92,11 @@ _Sent via taxiserviceahangama.lk_
           max-width: 1060px; margin: 0 auto; position: relative; z-index: 5;
           display: grid; grid-template-columns: 1fr 1.55fr; gap: 48px; align-items: start;
         }
-        @media(max-width:860px){ 
-            .bk-inner { grid-template-columns: 1fr; gap: 36px; } 
-            .bk-section { padding: 80px 20px; }
-        }
+        @media(max-width:860px){ .bk-inner { grid-template-columns: 1fr; gap: 36px; } }
 
         /* ── LEFT PANEL ── */
+        .bk-left {}
+
         .bk-eyebrow {
           display: inline-flex; align-items: center; gap: 8px;
           border: 1px solid rgba(234,184,117,.5);
@@ -130,13 +113,13 @@ _Sent via taxiserviceahangama.lk_
 
         .bk-title {
           font-family: 'Playfair Display', serif; font-weight: 900;
-          font-size: clamp(2.2rem, 4.5vw, 3.5rem); line-height: 1.08; color: #0c1a3d;
+          font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.08; color: #0c1a3d;
           margin: 0 0 16px;
         }
         .bk-title em { color: var(--navy); font-style: italic; }
 
         .bk-desc {
-          font-size: .95rem; color: #5a6a85; line-height: 1.7; margin-bottom: 36px;
+          font-size: .9rem; color: #5a6a85; line-height: 1.7; margin-bottom: 36px;
         }
 
         /* Info cards stack */
@@ -189,35 +172,38 @@ _Sent via taxiserviceahangama.lk_
         }
         @keyframes bkRise { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
 
+        /* Gold accent bar */
         .bk-form-topbar {
           height: 5px;
           background: linear-gradient(90deg, var(--gold) 0%, #f5d08e 50%, var(--sky) 100%);
         }
 
-        .bk-form-inner { padding: 40px 40px 45px; }
+        .bk-form-inner { padding: 36px 36px 40px; }
         @media(max-width:520px){ .bk-form-inner { padding: 24px 18px 30px; } }
 
-        .bk-form-hd { margin-bottom: 32px; }
+        .bk-form-hd { margin-bottom: 28px; }
         .bk-form-title {
-          font-family: 'Playfair Display', serif; font-size: 1.6rem;
+          font-family: 'Playfair Display', serif; font-size: 1.5rem;
           font-weight: 900; color: #0c1a3d; margin-bottom: 4px;
         }
-        .bk-form-sub { font-size: .85rem; color: #94a3b8; font-weight: 500; }
+        .bk-form-sub { font-size: .8rem; color: #94a3b8; font-weight: 500; }
 
+        /* Form grid */
         .bk-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         @media(max-width:480px){ .bk-grid-2 { grid-template-columns: 1fr; } }
 
         .bk-fgroup { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+        .bk-fgroup:last-child { margin-bottom: 0; }
         .bk-label {
           font-size: 9.5px; font-weight: 800; text-transform: uppercase;
           letter-spacing: .12em; color: #64748b; padding-left: 2px;
         }
         .bk-required { color: var(--gold); margin-left: 2px; }
         .bk-input, .bk-textarea {
-          width: 100%; padding: 14px 16px;
+          width: 100%; padding: 13px 16px;
           border: 2px solid #e8edf8; border-radius: 14px;
           background: #f9fbff; font-family: 'DM Sans', sans-serif;
-          font-size: .9rem; color: #1e293b; outline: none;
+          font-size: .88rem; color: #1e293b; outline: none;
           transition: border-color .2s, background .2s, box-shadow .2s;
           box-sizing: border-box;
         }
@@ -225,27 +211,35 @@ _Sent via taxiserviceahangama.lk_
           border-color: var(--navy); background: #fff;
           box-shadow: 0 0 0 4px rgba(0,90,205,.08);
         }
+        .bk-input::placeholder, .bk-textarea::placeholder { color: #c4cde0; }
+        .bk-textarea { resize: none; }
+
+        /* Divider */
         .bk-divider {
           border: none; border-top: 1.5px dashed #e8edf8;
-          margin: 24px 0;
+          margin: 20px 0;
         }
 
+        /* Submit button */
         .bk-submit {
           width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
-          padding: 18px 24px;
+          padding: 16px 24px;
           background: linear-gradient(135deg, #25D366 0%, #1da851 100%);
           color: #fff; border: none; border-radius: 16px; cursor: pointer;
-          font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 1.05rem;
+          font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 1rem;
           box-shadow: 0 8px 28px rgba(37,211,102,.32);
           transition: transform .2s, box-shadow .2s, filter .2s;
+          letter-spacing: .02em;
         }
         .bk-submit:hover {
-          transform: translateY(-2px);
+          transform: translateY(-2px) scale(1.01);
           box-shadow: 0 14px 38px rgba(37,211,102,.42);
           filter: brightness(1.06);
         }
+        .bk-submit:active { transform: scale(.98); }
+
         .bk-submit-note {
-          text-align: center; margin-top: 14px;
+          text-align: center; margin-top: 12px;
           font-size: 10px; font-weight: 700; color: #94a3b8;
           letter-spacing: .1em; text-transform: uppercase;
         }
@@ -311,7 +305,7 @@ _Sent via taxiserviceahangama.lk_
                 <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                Call +94 77 374 4432
+                Call +94 77 37 444 32
               </button>
             </div>
           </div>

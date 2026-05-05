@@ -153,7 +153,7 @@ const navbar = () => {
                   text-[#005acd] px-4 py-3 rounded-xl font-semibold text-sm hover:border-[#005acd] transition-colors"
               >
                 <Phone size={15} />
-                +94 71 991 6072
+                +94 77 37 444 32
               </a>
             </div>
           </div>
