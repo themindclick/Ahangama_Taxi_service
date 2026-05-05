@@ -11,7 +11,7 @@ const packages = [
     timing: "Morning or Afternoon (6:00 AM – 6:00 PM)",
     duration: "2.5 - 3 Hours Travel",
     price: "All-Inclusive",
-    highlights: ["Private 4x4 Jeep", "Park Entry Tickets", "English Guide", "Island-wide Pickup"],
+    highlights: ["Private 4x4 Jeep", "Park Entry Tickets", "English Guide", "Island-wide Pickup","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
     features: ["Private AC Transport", "Chilled Water", "Unlimited Photo Stops"]
   },
   {
@@ -23,8 +23,44 @@ const packages = [
     timing: "Flexible Sessions (7:00 AM or 11:30 AM)",
     duration: "1.5 - 2.5 Hours Travel",
     price: "Family Choice",
-    highlights: ["Baby Elephant Feeding", "3-Hour Private Safari", "Transit Home Entry", "Door-to-door Service"],
+    highlights: ["Baby Elephant Feeding", "3-Hour Private Safari", "Transit Home Entry", "Door-to-door Service","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
     features: ["Private AC Transport", "Expert Tracker", "Snack Breaks Included"]
+  },
+  {
+    id: "galle-city",
+    category: "tour",
+    title: "Galle City & Coastal Heritage",
+    subtitle: "16th-Century Dutch Fort & Turtles",
+    image: "https://www.archaeology.lk/wp-content/uploads/2020/11/galle_fort_sri_lanka_aerial_view_buddhika_dilshan.jpg", 
+    timing: "08:30 AM or 09:00 AM",
+    duration: "Flexible",
+    price: "Coastal",
+    highlights: ["Galle Dutch Fort", "Turtle Hatchery", "Stilt Fishermen", "Jungle Beach","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
+    features: ["Private AC Car/Van", "Authentic Tuk-Tuk Option", "Entry Fees Included"]
+  },
+  {
+    id: "ella-adventure",
+    category: "tour",
+    title: "Ella Highland Adventure",
+    subtitle: "Misty Mountains & Iconic Bridges",
+    image: "https://www.arugambayagenda.com/wp-content/uploads/2024/07/stock-photo-train-arriving-famous-nine-arches-bridge-ella-sri-lanka.jpeg",
+    timing: "05:30 AM – 06:00 AM",
+    duration: "Full Day Trip",
+    price: "Highland",
+    highlights: ["Nine Arch Bridge", "Little Adam’s Peak", "Ravana Waterfall", "Ella Town","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
+    features: ["Private AC Transport", "Expert Driver-Guide", "Highway Tolls Included"]
+  },
+  {
+    id: "mirissa-whale",
+    category: "safari",
+    title: "Mirissa Whale Watching",
+    subtitle: "Ocean Giants & Scenic Hills",
+    image: "https://images.unsplash.com/photo-1568430462989-44163eb1752f?q=80&w=2070&auto=format&fit=crop",
+    timing: "Strict Start: 06:00 AM",
+    duration: "Morning Session",
+    price: "Ocean Choice",
+    highlights: ["Blue Whale Watching", "Coconut Tree Hill", "Luxury Boat Session", "Harbor Fees","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
+    features: ["Private Transport", "Life Jackets", "Harbor Taxes Included"]
   },
   {
     id: "madu",
@@ -35,8 +71,20 @@ const packages = [
     timing: "08:30 AM – 03:30 PM",
     duration: "2-Hour Boat Safari",
     price: "Relaxing",
-    highlights: ["64-Island Boat Tour", "Fish Massage", "Cinnamon Island", "Moonstone Mines"],
-    features: ["Private Transport", "Entry Fees Included", "Tuk-Tuk Option Available"]
+    highlights: ["64-Island Boat Tour", "Fish Massage", "Cinnamon Island", "Moonstone Mines","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
+    features: ["Private Transport", "Fish Massage Entry", "Tuk-Tuk Option Available"]
+  },
+  {
+    id: "heritage-tea",
+    category: "tour",
+    title: "Heritage Tea & Lake Serenity",
+    subtitle: "Tea Culture & Peaceful Waters",
+    image: "https://surmountventures.net/wp-content/uploads/2022/01/tea-plantation.jpg",
+    timing: "Recommended: 09:00 AM",
+    duration: "Half Day",
+    price: "New Experience",
+    highlights: ["Handunugoda Tea Estate", "Koggala Lake Boat Safari", "Virgin White Tea Tasting", "Folk Museum","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
+    features: ["Private Transport", "Estate Tour Included", "Lake Boat Safari"]
   },
   {
     id: "sinharaja",
@@ -47,7 +95,7 @@ const packages = [
     timing: "Best Start: 06:00 AM",
     duration: "Full Day Trekking",
     price: "Adventure",
-    highlights: ["Guided Jungle Trek", "Endemic Bird Watching", "Natural Waterfalls", "Rare Flora"],
+    highlights: ["Guided Jungle Trek", "Endemic Bird Watching", "Natural Waterfalls", "Rare Flora","Water bottle including & Car/van pick up and drop off including ,expressway tolls and parking fee okkoma including"],
     features: ["Forest Permits Included", "Professional Guide", "AC Van Transport"]
   }
 ];

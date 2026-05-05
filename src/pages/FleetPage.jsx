@@ -1,23 +1,58 @@
 // FleetPage.jsx — Redesigned for Taxi Service Ahangama
-// Data source: src/data/vehicles.jsx
-// Default: shows ALL vehicles; filter by category tab or search
-
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 import { vehicles, serviceTypes, businessInfo } from "../data/vehicles";
+
+const libraries = ["places"];
 
 const FleetPage = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  
+  // NEW: Selection & Form states to match Hero features
+  const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [pickupLocation, setPickupLocation] = useState("");
+  const [dropLocation, setDropLocation] = useState("");
+  const [dateTime, setDateTime] = useState("");
+  const [passengerName, setPassengerName] = useState("");
 
-  const handleWhatsApp = (vehicleLabel) => {
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: businessInfo.googleApiKey,
+    libraries,
+  });
+
+  const pickupAutocompleteRef = useRef(null);
+  const dropAutocompleteRef = useRef(null);
+
+  const onPickupChanged = () => {
+    if (pickupAutocompleteRef.current !== null) {
+      const place = pickupAutocompleteRef.current.getPlace();
+      setPickupLocation(place.formatted_address || place.name);
+    }
+  };
+
+  const onDropChanged = () => {
+    if (dropAutocompleteRef.current !== null) {
+      const place = dropAutocompleteRef.current.getPlace();
+      setDropLocation(place.formatted_address || place.name);
+    }
+  };
+
+  const handleWhatsApp = () => {
+    if (!selectedVehicle) return;
     const msg = encodeURIComponent(
-      `Hi! I'm interested in booking the *${vehicleLabel}*. Can you provide more details?`
+      `Hello! I'd like to book a ride.%0A%0A` +
+      `*Vehicle:* ${selectedVehicle.label} (${selectedVehicle.model})%0A` +
+      `*Pickup:* ${pickupLocation || "Not specified"}%0A` +
+      `*Drop:* ${dropLocation || "Not specified"}%0A` +
+      `*Date/Time:* ${dateTime || "Not specified"}%0A` +
+      `*Customer:* ${passengerName || "Not specified"}`
     );
     window.open(`https://wa.me/${businessInfo.whatsapp}?text=${msg}`, "_blank");
   };
 
   const handleCall = () => {
-    window.location.href = `tel:+${businessInfo.whatsapp}`;
+    window.location.href = `tel:${businessInfo.phone}`;
   };
 
   const filteredVehicles = useMemo(() => {
@@ -36,7 +71,6 @@ const FleetPage = () => {
     return list;
   }, [activeCategory, searchQuery]);
 
-  // Tabs: "All" + non-scroll serviceTypes only
   const tabs = [
     { id: "all", label: "All Vehicles", icon: "🚗" },
     ...serviceTypes.filter((s) => !s.scroll),
@@ -120,7 +154,6 @@ const FleetPage = () => {
         }
         .fl-tab:hover{background:#e4ecfa;color:var(--navy);}
         .fl-tab.active{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:0 4px 14px rgba(0,90,205,.25);}
-        .fl-tab__icon{font-size:15px;}
 
         .fl-search{position:relative;min-width:200px;}
         .fl-search__ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#94a3b8;pointer-events:none;}
@@ -128,112 +161,112 @@ const FleetPage = () => {
           width:100%;padding:10px 16px 10px 40px;
           border:2px solid #e2eaf6;border-radius:12px;background:#f7f9ff;
           font-family:'DM Sans',sans-serif;font-size:.85rem;color:#1e293b;outline:none;
-          transition:border-color .2s,box-shadow .2s;box-sizing:border-box;
         }
-        .fl-search__input:focus{border-color:var(--navy);background:#fff;box-shadow:0 0 0 4px rgba(0,90,205,.08);}
-        .fl-search__input::placeholder{color:#c4cde0;}
 
-        /* ─── META ────────────────────────────────── */
-        .fl-meta{max-width:1180px;margin:0 auto;padding:20px 24px 6px;font-size:.83rem;color:#64748b;}
-        .fl-meta b{color:#0c1a3d;font-weight:800;}
-
-        /* ─── GRID ────────────────────────────────── */
+        /* ─── GRID (UPDATED FOR 2 COL MOBILE) ──────── */
         .fl-grid{
           max-width:1180px;margin:0 auto;padding:6px 24px 80px;
           display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:26px;
+        }
+        @media(max-width:640px) {
+          .fl-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 6px 12px 60px; }
+          .vc__body { padding: 12px !important; }
+          .vc__name { font-size: 1rem !important; }
+          .vc__specs { padding: 8px !important; gap: 5px !important; }
+          .vc-sp__ico { width: 22px !important; height: 22px !important; font-size: 10px !important; }
+          .vc-sp__val { font-size: 9px !important; }
+          .vc__note, .vc__features { display: none; }
+          .vc__actions { grid-template-columns: 1fr; }
         }
 
         /* ─── VEHICLE CARD ────────────────────────── */
         .vc{
           background:#fff;border-radius:22px;overflow:hidden;border:2px solid #e8edf8;
           transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .22s;
-          animation:vcup .6s ease both;
+          cursor: pointer; animation:vcup .6s ease both;
         }
-        @keyframes vcup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
         .vc:hover{transform:translateY(-8px);box-shadow:0 22px 56px rgba(0,31,107,.13);border-color:var(--sky);}
 
-        .vc__img-box{position:relative;aspect-ratio:16/9;overflow:hidden;background:linear-gradient(135deg,#dce7f5,#c8d8ee);}
+        .vc__img-box{position:relative;aspect-ratio:16/11;overflow:hidden;background:linear-gradient(135deg,#dce7f5,#c8d8ee);}
         .vc__img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease;}
-        .vc:hover .vc__img{transform:scale(1.07);}
-
-        .vc__overlay{
-          position:absolute;inset:0;background:rgba(0,20,80,.54);backdrop-filter:blur(3px);
-          display:flex;align-items:center;justify-content:center;gap:12px;
-          opacity:0;transition:opacity .28s;
-        }
-        .vc:hover .vc__overlay{opacity:1;}
-        .vc-ov-btn{
-          width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
-          display:flex;align-items:center;justify-content:center;
-          transition:transform .2s,filter .2s;box-shadow:0 4px 14px rgba(0,0,0,.28);
-        }
-        .vc-ov-btn:hover{transform:scale(1.18);filter:brightness(1.1);}
-
+        
         .vc__price-badge{
           position:absolute;bottom:10px;left:10px;
           background:rgba(255,255,255,.93);backdrop-filter:blur(6px);
           padding:4px 12px;border-radius:99px;
-          font-size:9px;font-weight:800;color:var(--navy);letter-spacing:.08em;text-transform:uppercase;
-        }
-        .vc__cat-badge{
-          position:absolute;top:10px;right:10px;background:var(--navy);
-          padding:4px 12px;border-radius:99px;
-          font-size:9px;font-weight:800;color:#fff;letter-spacing:.06em;text-transform:uppercase;
+          font-size:9px;font-weight:800;color:var(--navy);text-transform:uppercase;
         }
 
-        .vc__body{padding:18px 18px 16px;}
-        .vc__name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:#0c1a3d;margin-bottom:2px;transition:color .2s;}
-        .vc:hover .vc__name{color:var(--navy);}
-        .vc__model{font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:.07em;margin-bottom:14px;}
+        .vc__body{padding:18px;}
+        .vc__name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:#0c1a3d;margin-bottom:2px;}
+        .vc__model{font-size:10px;font-weight:700;color:#9ca3af;margin-bottom:14px;}
 
         .vc__specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#f6f9ff;border-radius:13px;padding:12px;margin-bottom:13px;}
-        .vc-sp{display:flex;align-items:flex-start;gap:8px;}
-        .vc-sp__ico{width:30px;height:30px;border-radius:9px;background:rgba(0,90,205,.1);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;margin-top:1px;}
-        .vc-sp__lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;}
-        .vc-sp__val{font-size:11px;font-weight:700;color:#1e293b;line-height:1.3;}
-
-        .vc__features{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:13px;}
-        .vc__feat{padding:3px 11px;border-radius:99px;background:rgba(195,231,241,.35);border:1px solid rgba(0,90,205,.12);font-size:10px;font-weight:700;color:var(--navy);}
-
-        .vc__note{font-size:9.5px;color:#94a3b8;font-style:italic;line-height:1.5;border-left:3px solid var(--gold);padding-left:10px;margin-bottom:14px;}
+        .vc-sp{display:flex;align-items:center;gap:8px;}
+        .vc-sp__ico{width:30px;height:30px;border-radius:9px;background:rgba(0,90,205,.1);display:flex;align-items:center;justify-content:center;font-size:13px;}
+        .vc-sp__val{font-size:11px;font-weight:700;color:#1e293b;}
 
         .vc__actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
         .vc-btn{
-          padding:10px 14px;border:none;border-radius:12px;cursor:pointer;
-          font-family:'DM Sans',sans-serif;font-weight:700;font-size:.82rem;
-          display:flex;align-items:center;justify-content:center;gap:6px;
-          transition:filter .2s,transform .15s;
+          padding:10px;border:none;border-radius:10px;cursor:pointer;
+          font-family:'DM Sans',sans-serif;font-weight:700;font-size:.75rem;
+          display:flex;align-items:center;justify-content:center;gap:5px;
         }
-        .vc-btn:hover{filter:brightness(1.07);transform:scale(1.02);}
         .vc-btn--wa{background:linear-gradient(135deg,#25D366,#1da851);color:#fff;}
-        .vc-btn--call{background:linear-gradient(135deg,var(--navy),var(--navy-dk));color:#fff;}
+        .vc-btn--call{background:var(--navy);color:#fff;}
 
-        /* ─── EMPTY ───────────────────────────────── */
-        .fl-empty{grid-column:1/-1;text-align:center;padding:80px 20px;animation:vcup .6s ease both;}
-        .fl-empty__icon{font-size:60px;margin-bottom:14px;}
-        .fl-empty__title{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:900;color:#0c1a3d;margin-bottom:8px;}
-        .fl-empty__sub{font-size:.88rem;color:#64748b;margin-bottom:22px;}
-        .fl-empty__btn{padding:11px 26px;background:var(--navy);color:#fff;border:none;border-radius:13px;font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer;font-size:.88rem;transition:filter .2s,transform .15s;}
-        .fl-empty__btn:hover{filter:brightness(1.1);transform:scale(1.03);}
+        /* ─── MODAL POPUP STYLES ────────────────────── */
+        .modal-overlay {
+          position: fixed; inset: 0; background: rgba(12, 26, 61, 0.7);
+          backdrop-filter: blur(6px); z-index: 1000;
+          display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-content {
+          background: #fff; width: 100%; max-width: 550px; max-height: 90vh;
+          border-radius: 24px; overflow-y: auto; position: relative;
+          box-shadow: 0 30px 90px rgba(0,0,0,0.4);
+          animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .modal-close {
+          position: absolute; top: 20px; right: 20px; width: 32px; height: 32px;
+          background: #f1f5f9; border-radius: 50%; border: none; cursor: pointer;
+          display: flex; align-items: center; justify-content: center; z-index: 10;
+        }
 
-        /* ─── CTA ─────────────────────────────────── */
+        .h-form { padding: 30px; border-top: 5px solid var(--gold); }
+        .h-form__hd { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; }
+        .h-form__num {
+          width: 36px; height: 36px; border-radius: 50%; background: var(--navy);
+          color: #fff; font-weight: 900; display: flex; align-items: center; justify-content: center;
+        }
+        .h-form__title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; }
+
+        .h-fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        @media(max-width:480px){ .h-fgrid { grid-template-columns: 1fr; } }
+
+        .h-fgroup { display: flex; flex-direction: column; gap: 6px; }
+        .h-flabel { font-size: 9px; font-weight: 800; text-transform: uppercase; color: #64748b; }
+        .h-finput {
+          width: 100%; padding: 12px; border: 2px solid #dde5f4; border-radius: 12px;
+          font-family: 'DM Sans', sans-serif; outline: none; font-size: 0.85rem;
+        }
+        .h-finput:focus { border-color: var(--navy); }
+
+        .h-actions { display: flex; gap: 12px; }
+        .btn-wa { flex: 1; padding: 14px; background: #25D366; color: #fff; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-call { padding: 14px; border: 2px solid var(--navy); border-radius: 12px; color: var(--navy); font-weight: 800; background: #fff; cursor: pointer; }
+
+        /* ─── REST ─── */
         .fl-cta{background:linear-gradient(135deg,var(--navy-dp) 0%,var(--navy) 100%);padding:80px 24px;text-align:center;position:relative;overflow:hidden;}
-        .fl-cta__b1,.fl-cta__b2{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;background:rgba(234,184,117,.1);}
-        .fl-cta__b1{width:400px;height:400px;top:-100px;right:-80px;}
-        .fl-cta__b2{width:300px;height:300px;bottom:-60px;left:-60px;}
         .fl-cta__inner{position:relative;z-index:5;max-width:660px;margin:0 auto;}
         .fl-cta__title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#fff;margin-bottom:12px;}
-        .fl-cta__title em{color:var(--gold);font-style:italic;}
-        .fl-cta__sub{color:rgba(195,231,241,.85);font-size:.9rem;margin-bottom:34px;line-height:1.65;}
-        .fl-cta__btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
-        .fl-cta-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border:none;border-radius:14px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:800;font-size:.93rem;transition:transform .2s,filter .2s;}
-        .fl-cta-btn:hover{transform:scale(1.04);filter:brightness(1.08);}
-        .fl-cta-btn--wa{background:linear-gradient(135deg,#25D366,#1da851);color:#fff;box-shadow:0 8px 26px rgba(37,211,102,.28);}
-        .fl-cta-btn--call{background:#fff;color:var(--navy);box-shadow:0 8px 26px rgba(0,0,0,.1);}
+        .fl-cta__sub{color:rgba(195,231,241,.85);font-size:.9rem;margin-bottom:34px;}
+        .fl-cta-btn--wa{background:linear-gradient(135deg,#25D366,#1da851);color:#fff; padding: 14px 26px; border-radius: 14px; border: none; font-weight: 800; cursor: pointer;}
       `}</style>
 
       <div className="fl">
-
         {/* ── Hero ── */}
         <div className="fl-hero">
           <div className="fl-hero__b1" /><div className="fl-hero__b2" />
@@ -242,7 +275,7 @@ const FleetPage = () => {
             <div className="fl-pill"><span className="fl-pill__dot" />Ahangama · Galle · Sri Lanka</div>
             <h1 className="fl-hero__title">Our Complete <em>Fleet</em></h1>
             <p className="fl-hero__sub">
-              From budget rides to large vans, tuk tuks to scooters — the perfect vehicle for every journey across Sri Lanka.
+              From budget rides to large vans, tuk tuks to scooters — the perfect vehicle for every journey.
             </p>
             <div className="fl-stats">
               <div className="fl-stat"><p className="fl-stat__num">{vehicles.length}+</p><p className="fl-stat__lbl">Vehicles</p></div>
@@ -269,9 +302,6 @@ const FleetPage = () => {
               ))}
             </div>
             <div className="fl-search">
-              <svg className="fl-search__ico" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
               <input
                 type="text"
                 placeholder="Search vehicles…"
@@ -283,120 +313,93 @@ const FleetPage = () => {
           </div>
         </div>
 
-        {/* Results count */}
         <p className="fl-meta">
           Showing <b>{filteredVehicles.length}</b> of <b>{vehicles.length}</b> vehicles
         </p>
 
         {/* ── Vehicle Grid ── */}
         <div className="fl-grid">
-          {filteredVehicles.length > 0 ? (
-            filteredVehicles.map((v, i) => (
-              <div key={v.id} className="vc" style={{ animationDelay: `${i * 60}ms` }}>
-                <div className="vc__img-box">
-                  <img src={v.image} alt={v.label} className="vc__img" />
-                  <div className="vc__overlay">
-                    <button className="vc-ov-btn" style={{ background: "#25D366" }} onClick={() => handleWhatsApp(v.label)}>
-                      <svg width="20" height="20" fill="#fff" viewBox="0 0 24 24">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                      </svg>
-                    </button>
-                    <button className="vc-ov-btn" style={{ background: "#ef4444" }} onClick={handleCall}>
-                      <svg width="20" height="20" fill="none" stroke="#fff" strokeWidth="2" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                      </svg>
-                    </button>
+          {filteredVehicles.map((v, i) => (
+            <div key={v.id} className="vc" onClick={() => setSelectedVehicle(v)} style={{ animationDelay: `${i * 60}ms` }}>
+              <div className="vc__img-box">
+                <img src={v.image} alt={v.label} className="vc__img" />
+                <span className="vc__price-badge">{v.price}</span>
+              </div>
+              <div className="vc__body">
+                <h3 className="vc__name">{v.label}</h3>
+                <p className="vc__model">{v.model}</p>
+                <div className="vc__specs">
+                  <div className="vc-sp">
+                    <div className="vc-sp__ico">👥</div>
+                    <p className="vc-sp__val">{v.capacity}</p>
                   </div>
-                  <span className="vc__price-badge">{v.price}</span>
-                  <span className="vc__cat-badge">{v.label}</span>
+                  <div className="vc-sp">
+                    <div className="vc-sp__ico">🧳</div>
+                    <p className="vc-sp__val">{v.baggage}</p>
+                  </div>
                 </div>
-
-                <div className="vc__body">
-                  <h3 className="vc__name">{v.label}</h3>
-                  <p className="vc__model">{v.model}</p>
-
-                  <div className="vc__specs">
-                    <div className="vc-sp">
-                      <div className="vc-sp__ico">👥</div>
-                      <div>
-                        <p className="vc-sp__lbl">Capacity</p>
-                        <p className="vc-sp__val">{v.capacity}</p>
-                      </div>
-                    </div>
-                    <div className="vc-sp">
-                      <div className="vc-sp__ico">🧳</div>
-                      <div>
-                        <p className="vc-sp__lbl">Baggage</p>
-                        <p className="vc-sp__val">{v.baggage}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {v.features && v.features.length > 0 && (
-                    <div className="vc__features">
-                      {v.features.map((f) => (
-                        <span key={f} className="vc__feat">✓ {f}</span>
-                      ))}
-                    </div>
-                  )}
-
-                  <p className="vc__note">{v.note}</p>
-
-                  <div className="vc__actions">
-                    <button className="vc-btn vc-btn--wa" onClick={() => handleWhatsApp(v.label)}>
-                      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                      </svg>
-                      WhatsApp
-                    </button>
-                    <button className="vc-btn vc-btn--call" onClick={handleCall}>
-                      <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                      </svg>
-                      Call Now
-                    </button>
-                  </div>
+                <div className="vc__actions">
+                  <button className="vc-btn vc-btn--wa">Book Now</button>
+                  <button className="vc-btn vc-btn--call" onClick={(e) => { e.stopPropagation(); handleCall(); }}>Call</button>
                 </div>
               </div>
-            ))
-          ) : (
-            <div className="fl-empty">
-              <div className="fl-empty__icon">🔍</div>
-              <h3 className="fl-empty__title">No vehicles found</h3>
-              <p className="fl-empty__sub">Try a different category or clear your search</p>
-              <button className="fl-empty__btn" onClick={() => { setActiveCategory("all"); setSearchQuery(""); }}>
-                Show All Vehicles
-              </button>
             </div>
-          )}
+          ))}
         </div>
 
         {/* ── CTA Banner ── */}
         <div className="fl-cta">
-          <div className="fl-cta__b1" /><div className="fl-cta__b2" />
           <div className="fl-cta__inner">
             <h2 className="fl-cta__title">Can't Find What <em>You Need?</em></h2>
-            <p className="fl-cta__sub">
-              Contact us directly — we'll match you to the perfect vehicle and can arrange
-              custom packages for long-term rentals, tours &amp; group travel.
-            </p>
-            <div className="fl-cta__btns">
-              <button className="fl-cta-btn fl-cta-btn--wa" onClick={() => handleWhatsApp("a vehicle")}>
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                </svg>
-                Message on WhatsApp
-              </button>
-              <button className="fl-cta-btn fl-cta-btn--call" onClick={handleCall}>
-                <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                Call +94 71 991 6072
-              </button>
-            </div>
+            <p className="fl-cta__sub">Contact us directly — we'll match you to the perfect vehicle.</p>
+            <button className="fl-cta-btn--wa" onClick={handleCall}>Contact Support</button>
           </div>
         </div>
 
+        {/* ── BOOKING MODAL POPUP ── */}
+        {selectedVehicle && (
+          <div className="modal-overlay" onClick={() => setSelectedVehicle(null)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <button className="modal-close" onClick={() => setSelectedVehicle(null)}>✕</button>
+              <div className="h-form">
+                <div className="h-form__hd">
+                  <div className="h-form__num">✓</div>
+                  <h2 className="h-form__title">Book {selectedVehicle.label}</h2>
+                </div>
+                <div className="h-fgrid">
+                  {isLoaded ? (
+                    <>
+                      <div className="h-fgroup">
+                        <label className="h-flabel">Pickup Location</label>
+                        <Autocomplete onLoad={(ac) => (pickupAutocompleteRef.current = ac)} onPlaceChanged={onPickupChanged}>
+                          <input type="text" placeholder="📍 Pickup point" className="h-finput" />
+                        </Autocomplete>
+                      </div>
+                      <div className="h-fgroup">
+                        <label className="h-flabel">Drop Location</label>
+                        <Autocomplete onLoad={(ac) => (dropAutocompleteRef.current = ac)} onPlaceChanged={onDropChanged}>
+                          <input type="text" placeholder="🏁 Destination" className="h-finput" />
+                        </Autocomplete>
+                      </div>
+                    </>
+                  ) : <p>Loading Maps...</p>}
+                  <div className="h-fgroup">
+                    <label className="h-flabel">Date & Time</label>
+                    <input type="datetime-local" className="h-finput" onChange={(e) => setDateTime(e.target.value)} />
+                  </div>
+                  <div className="h-fgroup">
+                    <label className="h-flabel">Your Name</label>
+                    <input type="text" placeholder="👤 Full Name" className="h-finput" onChange={(e) => setPassengerName(e.target.value)} />
+                  </div>
+                </div>
+                <div className="h-actions">
+                  <button className="btn-wa" onClick={handleWhatsApp}>Confirm via WhatsApp</button>
+                  <button className="btn-call" onClick={handleCall}>Call Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

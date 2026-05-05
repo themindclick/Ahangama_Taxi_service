@@ -5,7 +5,7 @@ export const vehicles = [
     id: "budget",
     label: "Budget",
     model: "Suzuki Wagon R or similar",
-    categories: ["airport", "instant"],
+    categories: ["rental", "airport", "instant"],
     capacity: "Up to 2 Passengers",
     baggage: "2 Small Luggage",
     note: "Vehicle capacity may vary based on the size and quantity of passenger luggage.",
@@ -89,7 +89,7 @@ export const vehicles = [
 
 export const serviceTypes = [
   { id: "airport", label: "Airport", icon: "✈️", scroll: false },
-  { id: "instant", label: "Instant Taxi", icon: "⚡", scroll: false },
+  { id: "instant", label: "Customize Tour", icon: "⚡", scroll: false },
   { id: "safari", label: "Safari", icon: "🐘", scroll: true, target: "packages" },
   { id: "tour", label: "Tours", icon: "🗺️", scroll: true, target: "packages" },
   { id: "rental", label: "Rentals", icon: "🛵", scroll: false },
