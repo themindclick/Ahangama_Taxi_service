@@ -1,9 +1,6 @@
 // Hero.jsx — Modern redesign for Taxi Service Ahangama
 import React, { useState, useRef } from "react";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
-
-// NOTE: Ensure these are exported from your ../data/vehicles file
-// For this demo, I'm assuming the structure matches your previous snippet.
 import { vehicles, serviceTypes, businessInfo } from "../data/vehicles";
 
 const libraries = ["places"];
@@ -21,7 +18,7 @@ export default function Hero() {
   const [bagsCount, setBagsCount] = useState("");
   const [bagsSize, setBagsSize] = useState("");
 
-  // Customize Tour Specific States
+  // Customize Tour Specific States (from Screenshot 2026-05-05 212005.png)
   const [tourType, setTourType] = useState("");
   const [tourDays, setTourDays] = useState(1);
   const [adults, setAdults] = useState(1);
@@ -58,21 +55,14 @@ export default function Hero() {
   const onPickupChanged = () => {
     if (pickupAutocompleteRef.current !== null) {
       const place = pickupAutocompleteRef.current.getPlace();
-      setPickupLocation(place.formatted_address || place.name || "");
+      setPickupLocation(place.formatted_address || place.name);
     }
   };
 
   const onDropChanged = () => {
     if (dropAutocompleteRef.current !== null) {
       const place = dropAutocompleteRef.current.getPlace();
-      setDropLocation(place.formatted_address || place.name || "");
-    }
-  };
-
-  const onDestChanged = () => {
-    if (destAutocompleteRef.current !== null) {
-      const place = destAutocompleteRef.current.getPlace();
-      setTempDest(place.formatted_address || place.name || "");
+      setDropLocation(place.formatted_address || place.name);
     }
   };
 
@@ -80,11 +70,6 @@ export default function Hero() {
     if (tempDest.trim()) {
       setDestinations([...destinations, tempDest.trim()]);
       setTempDest("");
-      // Clear the input field manually if needed
-      if (destAutocompleteRef.current) {
-        const input = destAutocompleteRef.current.getPlace(); 
-        // Logic to clear actual input DOM can be added if using native refs
-      }
     }
   };
 
@@ -132,16 +117,6 @@ export default function Hero() {
           --navy:       #005acd;
           --navy-dark:  #003d8f;
           --navy-deep:  #001f6b;
-        }
-
-        /* FIX: Ensure Google Places Autocomplete dropdown is visible above modals */
-        .pac-container {
-          z-index: 10000 !important;
-          font-family: 'DM Sans', sans-serif;
-          border-radius: 12px;
-          margin-top: 4px;
-          border: none;
-          box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
 
         .h-root * { box-sizing: border-box; }
@@ -352,6 +327,7 @@ export default function Hero() {
           color: var(--navy); font-weight: 800; background: #fff; cursor: pointer;
         }
 
+        /* Customize Tour Form Layout Styles */
         .ct-container { display: flex; gap: 30px; flex-wrap: wrap; }
         .ct-main { flex: 1.5; min-width: 300px; }
         .ct-side { flex: 1; min-width: 250px; background: #f8fafc; padding: 24px; border-radius: 20px; border: 1px solid #edf2f7; }
@@ -395,7 +371,7 @@ export default function Hero() {
 
             <div className="h-section">
               {activeService === "instant" ? (
-                /* CUSTOM TOUR FORM */
+                /* CUSTOM TOUR FORM (ID: "instant") from Screenshot 2026-05-05 212005.png */
                 <div className="ct-container">
                   <div className="ct-main">
                     <h2 className="h-section-title" style={{ marginBottom: '20px' }}>Travel Details</h2>
@@ -410,16 +386,10 @@ export default function Hero() {
                     <div className="ct-row">
                       {isLoaded && (
                         <>
-                          <Autocomplete 
-                            onLoad={ac => (pickupAutocompleteRef.current = ac)} 
-                            onPlaceChanged={onPickupChanged}
-                          >
+                          <Autocomplete onLoad={ac => (pickupAutocompleteRef.current = ac)} onPlaceChanged={onPickupChanged}>
                             <input type="text" placeholder="Pick Location" className="h-finput" />
                           </Autocomplete>
-                          <Autocomplete 
-                            onLoad={ac => (dropAutocompleteRef.current = ac)} 
-                            onPlaceChanged={onDropChanged}
-                          >
+                          <Autocomplete onLoad={ac => (dropAutocompleteRef.current = ac)} onPlaceChanged={onDropChanged}>
                             <input type="text" placeholder="Drop Location" className="h-finput" />
                           </Autocomplete>
                         </>
@@ -451,6 +421,7 @@ export default function Hero() {
                         </div>
                       ))}
                     </div>
+                    <p style={{ fontSize: '10px', color: '#94a3b8', marginTop: '10px' }}>*Only children aged 12 years and under should be categorized as kids.</p>
                     
                     <button className="btn-wa" style={{ marginTop: '20px' }} onClick={() => handleWhatsApp(true)}>Confirm via WhatsApp</button>
                   </div>
@@ -459,10 +430,7 @@ export default function Hero() {
                     <h3 className="h-flabel" style={{ marginBottom: '12px', fontSize: '12px' }}>Add Destinations</h3>
                     <div className="ct-row">
                       {isLoaded && (
-                        <Autocomplete 
-                          onLoad={ac => (destAutocompleteRef.current = ac)} 
-                          onPlaceChanged={onDestChanged}
-                        >
+                        <Autocomplete onLoad={ac => (destAutocompleteRef.current = ac)} onPlaceChanged={() => setTempDest(destAutocompleteRef.current.getPlace().name)}>
                           <input 
                             type="text" 
                             placeholder="Add Destinations" 
@@ -491,7 +459,7 @@ export default function Hero() {
                   </div>
 
                   <div className="h-grid">
-                    {filteredVehicles.map((car) => (
+                    {filteredVehicles.map((car, i) => (
                       <div key={car.id} onClick={() => setSelectedVehicle(car)} className="vc">
                         <div className="vc__img-box">
                           <img src={car.image} alt={car.label} className="vc__img" />
@@ -519,86 +487,18 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* BOOKING MODAL */}
+        {/* ORIGINAL MODAL FOR VEHICLE BOOKINGS */}
         {selectedVehicle && (
           <div className="modal-overlay" onClick={() => setSelectedVehicle(null)}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <button className="modal-close" onClick={() => setSelectedVehicle(null)}>✕</button>
-              
               <div className="h-form">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '25px' }}>
-                  <div style={{ 
-                    background: 'var(--navy)', color: '#fff', width: '40px', height: '40px', 
-                    borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontWeight: 'bold', fontSize: '1.2rem'
-                  }}>2</div>
-                  <h2 className="h-section-title" style={{ margin: 0 }}>Confirm {selectedVehicle.label}</h2>
-                </div>
-
+                <h2 className="h-form__title">Confirm {selectedVehicle.label}</h2>
                 <div className="h-fgrid">
-                  <div className="h-fgroup">
-                    <label className="h-flabel">Pickup Location</label>
-                    {isLoaded && (
-                      <Autocomplete 
-                        onLoad={ac => (pickupAutocompleteRef.current = ac)} 
-                        onPlaceChanged={onPickupChanged}
-                      >
-                        <input type="text" placeholder="📍 Pickup point" className="h-finput" />
-                      </Autocomplete>
-                    )}
-                  </div>
-
-                  <div className="h-fgroup">
-                    <label className="h-flabel">Drop Location</label>
-                    {isLoaded && (
-                      <Autocomplete 
-                        onLoad={ac => (dropAutocompleteRef.current = ac)} 
-                        onPlaceChanged={onDropChanged}
-                      >
-                        <input type="text" placeholder="🏁 Destination" className="h-finput" />
-                      </Autocomplete>
-                    )}
-                  </div>
-
-                  <div className="h-fgroup">
-                    <label className="h-flabel">Date & Time</label>
-                    <input type="datetime-local" className="h-finput" onChange={e => setDateTime(e.target.value)} />
-                  </div>
-
-                  <div className="h-fgroup">
-                    <label className="h-flabel">Your Name</label>
-                    <input type="text" placeholder="👤 Full Name" className="h-finput" onChange={e => setPassengerName(e.target.value)} />
-                  </div>
-
-                  <div className="h-fgroup">
-                    <label className="h-flabel">No. of Passengers</label>
-                    <input type="number" placeholder="How many people?" className="h-finput" min="1" onChange={e => setPassengerCount(e.target.value)} />
-                  </div>
-
-                  <div className="h-fgroup">
-                    <label className="h-flabel">Baggage Details</label>
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <input 
-                        type="number" 
-                        placeholder="Bags" 
-                        className="h-finput" 
-                        style={{ flex: 1 }} 
-                        onChange={e => setBagsCount(e.target.value)} 
-                      />
-                      <select className="h-finput" style={{ flex: 1.5 }} onChange={e => setBagsSize(e.target.value)}>
-                        <option value="">Size...</option>
-                        <option value="Small">Small (Hand)</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Large">Large / XL</option>
-                      </select>
-                    </div>
-                  </div>
+                   <input type="text" placeholder="Your Name" className="h-finput" onChange={e => setPassengerName(e.target.value)} />
+                   <input type="datetime-local" className="h-finput" onChange={e => setDateTime(e.target.value)} />
                 </div>
-
-                <div className="h-actions">
-                  <button className="btn-wa" onClick={() => handleWhatsApp(false)}>Confirm via WhatsApp</button>
-                  <button className="btn-call" onClick={handleCall}>Call Us</button>
-                </div>
+                <button className="btn-wa" onClick={() => handleWhatsApp(false)}>Confirm via WhatsApp</button>
               </div>
             </div>
           </div>
