@@ -90,9 +90,11 @@ export default function Hero() {
 
   const handleWhatsApp = (isTour = false) => {
     let msg = "";
+    
     if (isTour) {
+      // 1. CUSTOM TOUR MESSAGE
       msg = 
-        `*CUSTOM TOUR INQUIRY*%0A%0A` +
+        `*✨ CUSTOM TOUR INQUIRY*%0A%0A` +
         `*Tour Type:* ${tourType || "Flexible"}%0A` +
         `*Pickup:* ${pickupLocation || "Not specified"}%0A` +
         `*Drop:* ${dropLocation || "Not specified"}%0A` +
@@ -103,7 +105,16 @@ export default function Hero() {
         `*Destinations:* ${destinations.join(" -> ") || "Flexible"}`;
     } else {
       if (!selectedVehicle) return;
+
+      // Determine the Title based on the active tab
+      // Assuming your serviceTypes IDs are 'airport' and 'rental'
+      const title = activeService === "airport" 
+        ? "*✈️ AIRPORT HIRE BOOKING*" 
+        : "*🚗 VEHICLE RENTAL BOOKING*";
+
+      // 2. AIRPORT OR RENTAL MESSAGE
       msg =
+        `${title}%0A%0A` +
         `Hello! I'd like to book a ride.%0A%0A` +
         `*Vehicle:* ${selectedVehicle.label} (${selectedVehicle.model})%0A` +
         `*Pickup:* ${pickupLocation || "Not specified"}%0A` +
@@ -113,6 +124,7 @@ export default function Hero() {
         `*Passengers:* ${passengerCount || "Not specified"}%0A` +
         `*Luggage:* ${bagsCount || "0"} Bag(s) (${bagsSize || "N/A"})`;
     }
+
     window.open(`https://wa.me/${businessInfo.whatsapp}?text=${msg}`, "_blank");
   };
 
