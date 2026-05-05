@@ -189,20 +189,26 @@ export default function Hero() {
           flex-wrap: wrap; gap: 16px; margin-bottom: 30px;
         }
 
-        /* UPDATED GRID FOR MOBILE: 2 Columns */
         .h-grid {
           display: grid; 
           grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
           gap: 20px;
         }
         @media(max-width:640px) {
-          .h-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-          .vc__body { padding: 12px !px !important; }
-          .vc__name { font-size: 1rem !important; }
-          .vc__specs { padding: 8px !important; gap: 5px !important; }
-          .sp__icon { width: 22px !important; height: 22px !important; font-size: 10px !important; }
-          .sp__val { font-size: 9px !important; }
-          .vc__note { display: none; } /* Hide note on mobile grid to save space */
+          .h-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+          .vc__body { padding: 10px !important; overflow: hidden; }
+          .vc__name { 
+             font-size: 0.95rem !important; 
+             word-wrap: break-word; 
+             overflow-wrap: break-word; 
+             line-height: 1.2;
+          }
+          .vc__model { font-size: 8px !important; margin-bottom: 8px !important; }
+          .vc__specs { padding: 6px !important; gap: 4px !important; }
+          .sp { gap: 4px !important; align-items: flex-start !important; }
+          .sp__icon { width: 18px !important; height: 18px !important; font-size: 9px !important; flex-shrink: 0; }
+          .sp__val { font-size: 8.5px !important; word-break: break-all; }
+          .vc__note { display: none; } 
         }
 
         .vc {
@@ -210,6 +216,7 @@ export default function Hero() {
           overflow: hidden; cursor: pointer;
           transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s, border-color .22s;
           animation: fadeUp .65s ease both;
+          display: flex; flex-direction: column;
         }
         @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
         .vc:hover { transform: translateY(-8px); box-shadow: 0 22px 56px rgba(0,31,107,.14); border-color: var(--sky); }
@@ -226,10 +233,11 @@ export default function Hero() {
         .vc-badge--popular { top:10px; right:10px; background:#ef4444; color:#fff; }
         .vc-badge--tag { bottom:8px; left:8px; background:rgba(255,255,255,.94); color:var(--navy); }
 
-        .vc__body { padding: 18px; }
+        .vc__body { padding: 18px; flex-grow: 1; display: flex; flex-direction: column; }
         .vc__name {
           font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900;
           color: #0c1a3d; margin-bottom: 2px;
+          word-wrap: break-word;
         }
         .vc__model { font-size: 9px; font-weight: 700; color: #9ca3af; letter-spacing: .08em; margin-bottom: 12px; }
 
@@ -237,18 +245,17 @@ export default function Hero() {
           display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
           background: #f6f9ff; border-radius: 12px; padding: 10px; margin-bottom: 10px;
         }
-        .sp { display: flex; align-items: center; gap: 6px; }
+        .sp { display: flex; align-items: center; gap: 6px; overflow: hidden; }
         .sp__icon {
           width: 26px; height: 26px; border-radius: 7px;
           background: rgba(0,90,205,.1);
           display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0;
         }
         .sp__lbl { font-size: 8px; font-weight: 800; color: #94a3b8; text-transform: uppercase; }
-        .sp__val { font-size: 10px; font-weight: 700; color: #1e293b; }
+        .sp__val { font-size: 10px; font-weight: 700; color: #1e293b; white-space: normal; word-break: break-word; }
 
         .vc__note { font-size: 9px; color: #94a3b8; line-height: 1.4; font-style: italic; border-left: 2px solid var(--gold); padding-left: 8px; }
 
-        /* ─── MODAL POPUP STYLES ────────────────────── */
         .modal-overlay {
           position: fixed; inset: 0; background: rgba(12, 26, 61, 0.7);
           backdrop-filter: blur(6px); z-index: 1000;
@@ -386,12 +393,10 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ── MODAL POPUP FOR BOOKING ── */}
         {selectedVehicle && (
           <div className="modal-overlay" onClick={() => setSelectedVehicle(null)}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <button className="modal-close" onClick={() => setSelectedVehicle(null)}>✕</button>
-              
               <div className="h-form">
                 <div className="h-form__hd">
                   <div className="h-form__num">2</div>
