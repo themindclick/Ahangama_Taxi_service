@@ -88,11 +88,11 @@ export const vehicles = [
 ];
 
 export const serviceTypes = [
-  { id: "airport", label: "Airport", icon: "✈️", scroll: false },
-  { id: "instant", label: "Customize Tour", icon: "⚡", scroll: false },
-  { id: "safari", label: "Safari", icon: "🐘", scroll: true, target: "packages" },
-  { id: "tour", label: "Tours", icon: "🗺️", scroll: true, target: "packages" },
-  { id: "rental", label: "Rentals", icon: "🛵", scroll: false },
+  { id: "airport",  label: "Airport Transfer",  icon: "✈️", scroll: false, desc: "Comfortable pickup & drop to all airports." },
+  { id: "instant",  label: "Safari Tours",       icon: "🐘", scroll: false, desc: "Udawalawe, Yala & more wildlife adventures." },
+  { id: "safari",   label: "Private Tours",      icon: "🗺️", scroll: true,  target: "packages", desc: "Explore the beauty of Sri Lanka with us." },
+  { id: "tour",     label: "Daily Rentals",      icon: "🚕", scroll: false, desc: "Cars, Vans & Buses for your daily travel needs." },
+  { id: "rental",   label: "Custom Packages",    icon: "🧳", scroll: false, desc: "Tailor-made packages just for you." },
 ];
 
 export const businessInfo = {

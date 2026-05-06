@@ -8,7 +8,7 @@ const libraries = ["places"];
 const FleetPage = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  
+
   // NEW: Selection & Form states to match Hero features
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [pickupLocation, setPickupLocation] = useState("");
