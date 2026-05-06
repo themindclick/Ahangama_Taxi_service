@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Facebook, Clock, Globe } from 'lucide-react';
+import { Phone, Mail, MapPin, Instagram, Clock, Globe } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -21,7 +21,7 @@ const Footer = () => {
             <div className="flex space-x-4">
               <a href="https://www.instagram.com/taxiserviceahangama?igsh=MWV2YWtvZG9qbnI2bw%3D%3D&utm_source=qr" 
                  className="p-2 bg-neutral-900 rounded-full hover:bg-[#005acd] transition-colors border border-neutral-800">
-                <Facebook size={18} />
+                <Instagram size={18} />
               </a>
             </div>
           </div>

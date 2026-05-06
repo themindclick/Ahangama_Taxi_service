@@ -148,7 +148,7 @@ const navbar = () => {
                 Book Now
               </Link>
               <a
-                href="tel:0719916072"
+                href="tel:0773744432"
                 className="flex items-center justify-center gap-2 w-full border-2 border-[#C3E7F1]
                   text-[#005acd] px-4 py-3 rounded-xl font-semibold text-sm hover:border-[#005acd] transition-colors"
               >
