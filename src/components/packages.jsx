@@ -319,15 +319,44 @@ const packages = [
 ];
 
 export default function Packages() {
-  const handleBooking = (pkg) => {
-    const msg =
-      `Hello! I'm interested in the *${pkg.title}*.%0A%0A` +
-      `*Type:* ${pkg.category.toUpperCase()}%0A` +
-      `*Timing:* ${pkg.timing}%0A` +
-      `Please provide more details and availability.`;
+ const handleBooking = (pkg) => {
+  const isMultiDay = pkg.duration.toLowerCase().includes("multi-day");
 
-    window.open(`https://wa.me/${businessInfo.whatsapp}?text=${msg}`, "_blank");
-  };
+  // Logic to format the "Details" section based on category
+  let detailsText = "";
+  if (isMultiDay) {
+    // For Tours: Format the Day-by-Day itinerary
+    detailsText = "*ITINERARY SUMMARY:*\n" + 
+      pkg.highlights
+        .filter(h => h.includes("Day")) 
+        .map(h => `📍 ${h.split(":")[0].trim()}: ${h.split(":")[1]?.split("(")[0].trim() || ""}`)
+        .join("\n");
+  } else {
+    // For Safaris: Show the best highlights
+    detailsText = "*HIGHLIGHTS:*\n" + 
+      pkg.highlights.slice(0, 4).map(h => `✅ ${h}`).join("\n");
+  }
+
+  // Construct the full message string using standard newlines \n
+  const fullMsg = 
+    `*BOOKING INQUIRY* 🇱🇰\n` +
+    `--------------------------\n` +
+    `*Trip:* ${pkg.title}\n` +
+    `*Category:* ${pkg.category.toUpperCase()}\n` +
+    `*Duration:* ${pkg.duration}\n` +
+    `--------------------------\n\n` +
+    `${detailsText}\n\n` +
+    `*GUEST DETAILS:*\n` +
+    `• Preferred Date:\n` +
+    `• Number of Pax:\n` +
+    `• Pickup Location:\n\n` +
+    `Hello! I am interested in this package. Please let me know the availability and pricing.`;
+
+  // USE encodeURIComponent to prevent the "" or broken string errors
+  const encodedMsg = encodeURIComponent(fullMsg);
+
+  window.open(`https://wa.me/${businessInfo.whatsapp}?text=${encodedMsg}`, "_blank");
+};
 
   const safariPackages = packages.filter(pkg => pkg.category === "safari");
   const tourPackages = packages.filter(pkg => pkg.category === "tour");
