@@ -121,10 +121,10 @@ const packages = [
     duration: "Multi-Day Journey",
     price: "Custom",
     highlights: [
-      "Day 01: Ahangama ➡️ Ella (Rawana Waterfalls & Little Adam’s Peak Sunset)",
-      "Day 02: Ella ➡️ Nuwara Eliya (Nine Arch Bridge, Scenic Train Ride & Tea Factory)",
-      "Day 03: Nuwara Eliya ➡️ Airport/Ahangama (Gregory Lake & Victoria Park)",
-      "Included: Private AC Transport, Fuel, Highway Tolls"
+      "Day 01: Ahangama ➡️ Ella (Rawana Waterfalls & Little Adam’s Peak Sunset) - Night Stop: Ella",
+      "Day 02: Ella ➡️ Nuwara Eliya (Nine Arch Bridge, Scenic Train Ride (Optional) & Tea Factory) - Night Stop: Nuwara Eliya",
+      "Day 03: Nuwara Eliya ➡️ Airport/Ahangama (Gregory Lake & Victoria Park - Scenic drive to final destination)",
+      "Included: ✅ Private AC Transport, Fuel, Highway Tolls"
     ],
     excluding: ["Hotels", "Meals", "Entry Tickets"],
     features: ["Expert Driver-Guide", "Scenic Highland Route", "Flexible Pace"]
@@ -139,10 +139,10 @@ const packages = [
     duration: "Multi-Day Journey",
     price: "Custom",
     highlights: [
-      "Day 01: Ahangama ➡️ Kandy (Temple of Sacred Tooth & Cultural Dance Show)",
-      "Day 02: Kandy ➡️ Sigiriya (Peradeniya Botanical Gardens & Dambulla Cave Temple)",
-      "Day 03: Sigiriya ➡️ Airport/Ahangama (Sigiriya Lion Rock or Pidurangala Rock)",
-      "Included: Private AC Transport, Expert Driver-Guide"
+      "Day 01: Ahangama ➡️ Kandy (Temple of the Sacred Tooth Relic & Kandy Cultural Dance Show) - Night Stop: Kandy",
+      "Day 02: Kandy ➡️ Sigiriya (Royal Botanical Gardens (Peradeniya) & Dambulla Cave Temple) - Night Stop: Sigiriya",
+      "Day 03: Sigiriya ➡️ Airport/Ahangama (Sigiriya Lion Rock Fortress or Pidurangala Rock - Return journey)",
+      "Included: ✅ Private AC Transport, Expert Driver-Guide"
     ],
     excluding: ["Hotels", "Meals", "Entry Tickets"],
     features: ["Cultural Heritage Sites", "Private AC Transport", "Professional Guidance"]
@@ -157,11 +157,11 @@ const packages = [
     duration: "Multi-Day Journey",
     price: "Custom",
     highlights: [
-      "Day 01: Ahangama ➡️ Ella (Rawana Falls & Nine Arch Bridge)",
-      "Day 02: Ella ➡️ Kandy (Little Adam’s Peak & Scenic Mountain Drive)",
-      "Day 03: Kandy ➡️ Ambuluwawa (Temple of the Tooth & 360-degree Tower)",
-      "Day 04: Kandy ➡️ Airport/Ahangama (Spice Garden & Gem Museum)",
-      "Included: Transport, Highway/Parking fees"
+      "Day 01: Ahangama ➡️ Ella (Rawana Falls & Nine Arch Bridge) - Night Stop: Ella",
+      "Day 02: Ella ➡️ Kandy (Little Adam’s Peak & Scenic drive to Kandy via mountains) - Night Stop: Kandy",
+      "Day 03: Kandy ➡️ Ambuluwawa (Temple of the Tooth & the 360-degree Ambuluwawa Tower) - Night Stop: Kandy",
+      "Day 04: Kandy ➡️ Airport/Ahangama (Spice Garden & Gem Museum - Final drop-off)",
+      "Included: ✅ Multilingual Transport, Highway/Parking fees"
     ],
     excluding: ["Hotels", "Meals", "Entry Tickets"],
     features: ["Mountain Scenery", "Ambuluwawa Tower Visit", "Gem & Spice Tours"]
@@ -176,11 +176,11 @@ const packages = [
     duration: "Multi-Day Journey",
     price: "Custom",
     highlights: [
-      "Day 01: Ahangama ➡️ Udawalawe (Elephant Transit Home & Afternoon Safari)",
-      "Day 02: Udawalawe ➡️ Nuwara Eliya (Tea Plantations & Ramboda Waterfalls)",
-      "Day 03: Nuwara Eliya ➡️ Ella (Gregory Lake & Nanu Oya to Ella Train Ride)",
-      "Day 04: Ella ➡️ Airport/Ahangama (Nine Arch Bridge & Rawana Falls)",
-      "Included: Private Transport, Driver-Guide"
+      "Day 01: Ahangama ➡️ Udawalawe (Visit: Elephant Transit Home & Afternoon Safari at Udawalawe Park) - Night Stop: Udawalawe",
+      "Day 02: Udawalawe ➡️ Nuwara Eliya (Visit: Tea Plantations & Ramboda Waterfalls) - Night Stop: Nuwara Eliya",
+      "Day 03: Nuwara Eliya ➡️ Ella (Visit: Gregory Lake & iconic Train Ride from Nanu Oya to Ella) - Night Stop: Ella",
+      "Day 04: Ella ➡️ Airport/Ahangama (Visit: Nine Arch Bridge & Rawana Falls - Return journey)",
+      "Included: ✅ Private Transport, Driver-Guide"
     ],
     excluding: ["Safari Jeep Fees", "Hotels", "Meals", "Entry Tickets"],
     features: ["Wildlife Safari", "Famous Train Journey", "Tea Country Scenery"]
@@ -195,12 +195,12 @@ const packages = [
     duration: "Multi-Day Journey",
     price: "Custom",
     highlights: [
-      "Day 01: Ahangama ➡️ Ella (Rawana Falls & Nine Arch Bridge)",
-      "Day 02: Ella ➡️ Sigiriya (Little Adam's Peak & Travel to Cultural Triangle)",
-      "Day 03: Sigiriya Exploration (Rock Fortress, Village Tour & Minneriya Safari)",
-      "Day 04: Sigiriya ➡️ Kandy (Dambulla Cave Temple & Spice Garden Matale)",
-      "Day 05: Kandy ➡️ Airport/Ahangama (Temple of the Tooth & Peradeniya Gardens)",
-      "Included: Full AC Transport, Highway Fees, Pro Guide"
+      "Day 01: Ahangama ➡️ Ella (Visit: Rawana Falls & Nine Arch Bridge) - Night Stop: Ella",
+      "Day 02: Ella ➡️ Sigiriya (Visit: Little Adam's Peak & Travel to the Cultural Triangle) - Night Stop: Sigiriya",
+      "Day 03: Sigiriya Exploration (Visit: Sigiriya Rock Fortress, Village Tour (Bullock Cart ride), & Minneriya Safari) - Night Stop: Sigiriya",
+      "Day 04: Sigiriya ➡️ Kandy (Visit: Dambulla Cave Temple & Spice Garden Matale) - Night Stop: Kandy",
+      "Day 05: Kandy ➡️ Airport/Ahangama (Visit: Temple of the Tooth & Peradeniya Gardens - Final drop-off)",
+      "Included: ✅ Full AC Transport, Highway Fees, Pro Guide"
     ],
     excluding: ["Hotels", "Meals", "Entry Tickets"],
     features: ["Cultural Triangle Tour", "Authentic Village Experience", "Sigiriya Rock Fortress"]
@@ -215,11 +215,12 @@ const packages = [
     duration: "Multi-Day Journey",
     price: "Custom",
     highlights: [
-      "Day 01: Ahangama ➡️ Kitulgala (White Water Rafting & River Adventure)",
-      "Day 02: Kitulgala ➡️ Nuwara Eliya (St. Clair’s and Devon Waterfalls)",
-      "Day 03: Nuwara Eliya ➡️ Ella (Tea Factory & Hill Country Train Journey)",
-      "Day 04: Ella Exploration (Nine Arch Bridge & Little Adam's Peak)",
-      "Day 05: Ella ➡️ Airport/Ahangama (Rawana Falls)",
+      "Day 01: Ahangama ➡️ Kitulgala (Visit: White Water Rafting & Adventure activities in the river) - Night Stop: Kitulgala",
+      "Day 02: Kitulgala ➡️ Nuwara Eliya (Visit: St. Clair’s and Devon Waterfalls) - Night Stop: Nuwara Eliya",
+      "Day 03: Nuwara Eliya ➡️ Ella (Visit: Tea Factory & Hill Country Train Journey) - Night Stop: Ella",
+      "Day 04: Ella Exploration (Visit: Nine Arch Bridge & Little Adam's Peak) - Night Stop: Ella",
+      "Day 05: Ella ➡️ Airport/Ahangama (Visit: Rawana Falls - End of tour)",
+      "Included: ✅ Private AC Transport, Adventure Coordination"
     ],
     excluding: ["Adventure Activity Fees", "Hotels", "Meals", "Entry Tickets"],
     features: ["Water Rafting Adventure", "Hill Country Train", "Waterfall Photography"]
@@ -234,12 +235,13 @@ const packages = [
     duration: "Multi-Day Journey",
     price: "Custom",
     highlights: [
-      "Day 01: Ahangama ➡️ Ella (Rawana Falls/Nine Arch)",
-      "Day 02: Ella ➡️ Nuwara Eliya (Train Journey/Gregory Lake)",
-      "Day 03: Nuwara Eliya ➡️ Kandy (Tea Factory/Ramboda Falls)",
-      "Day 04: Kandy ➡️ Sigiriya (Temple of Tooth/Dambulla Caves)",
-      "Day 05: Sigiriya ➡️ Matale (Sigiriya Rock/Pidurangala/Spice Garden)",
+      "Day 01: Ahangama ➡️ Ella (Rawana Falls/Nine Arch) - Night Stop: Ella",
+      "Day 02: Ella ➡️ Nuwara Eliya (Train Journey/Gregory Lake) - Night Stop: Nuwara Eliya",
+      "Day 03: Nuwara Eliya ➡️ Kandy (Tea Factory/Ramboda Falls) - Night Stop: Kandy",
+      "Day 04: Kandy ➡️ Sigiriya (Temple of Tooth/Dambulla Caves) - Night Stop: Sigiriya",
+      "Day 05: Sigiriya ➡️ Matale (Sigiriya Rock/Pidurangala/Spice Garden) - Night Stop: Sigiriya",
       "Day 06: Sigiriya ➡️ Airport/Ahangama (Drop-off)",
+      "Included: ✅ Private AC Transport, Fuel & Highway Tolls"
     ],
     excluding: ["Hotels", "Meals", "Entry Tickets"],
     features: ["Grand Circular Route", "Comprehensive Site Visits", "Private AC Transport"]
@@ -254,13 +256,14 @@ const packages = [
     duration: "Multi-Day Journey",
     price: "Custom",
     highlights: [
-      "Day 01: Ahangama ➡️ Ella",
-      "Day 02: Ella ➡️ Nuwara Eliya",
-      "Day 03: Nuwara Eliya ➡️ Kandy",
-      "Day 04: Kandy ➡️ Ambuluwawa ➡️ Kandy",
-      "Day 05: Kandy ➡️ Sigiriya (Dambulla Caves)",
-      "Day 06: Sigiriya ➡️ Anuradhapura (First Ancient Capital)",
+      "Day 01: Ahangama ➡️ Ella - Night Stop: Ella",
+      "Day 02: Ella ➡️ Nuwara Eliya - Night Stop: Nuwara Eliya",
+      "Day 03: Nuwara Eliya ➡️ Kandy - Night Stop: Kandy",
+      "Day 04: Kandy ➡️ Ambuluwawa ➡️ Kandy - Night Stop: Kandy",
+      "Day 05: Kandy ➡️ Sigiriya (Dambulla Caves) - Night Stop: Sigiriya",
+      "Day 06: Sigiriya ➡️ Anuradhapura (First Ancient Capital) - Night Stop: Anuradhapura",
       "Day 07: Anuradhapura ➡️ Airport/Ahangama",
+      "Included: ✅ Private AC Transport, Professional Driver-Guide"
     ],
     excluding: ["Hotels", "Meals", "Entry Tickets"],
     features: ["Ancient Capital Tour", "Spiritual Sites", "Private AC Transport"]
@@ -275,14 +278,15 @@ const packages = [
     duration: "Multi-Day Journey",
     price: "Custom",
     highlights: [
-      "Day 01: Ahangama ➡️ Yala",
-      "Day 02: Yala Safari ➡️ Ella",
-      "Day 03: Ella Highlights (Train/Nine Arch)",
-      "Day 04: Ella ➡️ Kandy",
-      "Day 05: Kandy City & Temple",
-      "Day 06: Kandy ➡️ Sigiriya",
-      "Day 07: Sigiriya Rock & Polonnaruwa Ancient City",
+      "Day 01: Ahangama ➡️ Yala - Night: Yala",
+      "Day 02: Yala Safari ➡️ Ella - Night: Ella",
+      "Day 03: Ella Highlights (Train/Nine Arch) - Night: Ella",
+      "Day 04: Ella ➡️ Kandy - Night: Kandy",
+      "Day 05: Kandy City & Temple - Night: Kandy",
+      "Day 06: Kandy ➡️ Sigiriya - Night: Sigiriya",
+      "Day 07: Sigiriya Rock & Polonnaruwa Ancient City - Night: Sigiriya",
       "Day 08: Sigiriya ➡️ Airport/Ahangama",
+      "Included: ✅ Private AC Transport, Expert Navigation"
     ],
     excluding: ["Safari Jeep Fees", "Hotels", "Meals", "Entry Tickets"],
     features: ["Dual Safari Opportunity", "Ancient City Heritage", "Complete Regional Tour"]
@@ -297,16 +301,17 @@ const packages = [
     duration: "Multi-Day Journey",
     price: "Custom",
     highlights: [
-      "Day 01: Ahangama ➡️ Udawalawe (Safari)",
-      "Day 02: Udawalawe ➡️ Ella",
-      "Day 03: Ella Highlights",
-      "Day 04: Ella ➡️ Nuwara Eliya (Train)",
-      "Day 05: Nuwara Eliya ➡️ Kandy",
-      "Day 06: Kandy & Ambuluwawa",
-      "Day 07: Kandy ➡️ Sigiriya (Dambulla)",
-      "Day 08: Sigiriya Rock & Village Tour",
-      "Day 09: Sigiriya ➡️ Negombo (Beach relaxation)",
+      "Day 01: Ahangama ➡️ Udawalawe (Safari) - Night: Udawalawe",
+      "Day 02: Udawalawe ➡️ Ella - Night: Ella",
+      "Day 03: Ella Highlights - Night: Ella",
+      "Day 04: Ella ➡️ Nuwara Eliya (Train) - Night: Nuwara Eliya",
+      "Day 05: Nuwara Eliya ➡️ Kandy - Night: Kandy",
+      "Day 06: Kandy & Ambuluwawa - Night: Kandy",
+      "Day 07: Kandy ➡️ Sigiriya (Dambulla) - Night: Sigiriya",
+      "Day 08: Sigiriya Rock & Village Tour - Night: Sigiriya",
+      "Day 09: Sigiriya ➡️ Negombo (Beach relaxation) - Night: Negombo",
       "Day 10: Negombo ➡️ Airport Drop-off",
+      "Included: ✅ Full Tour Transport, Highway Fees, Driver-Guide"
     ],
     excluding: ["Hotels", "Meals", "Entry Tickets"],
     features: ["Complete Tour", "Wildlife, Hill Country & Beach", "All Major Landmarks"]
