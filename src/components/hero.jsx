@@ -169,7 +169,7 @@ export default function Hero() {
         }
         .h-banner__bg {
           position: absolute; inset: 0;
-           background: url('https://resources.travellocal.com/wp/uploads/2023/01/26120050/d2c54ee1-3c98-445d-b3c5-55eae274c55e-gallefort-galle-Srilanka-SS.jpeg-scaled.jpg') center/cover no-repeat;
+           background: url('/assets/bg.png') center/cover no-repeat;
         }
         .h-banner__overlay {
           position: absolute; inset: 0;
@@ -499,10 +499,12 @@ export default function Hero() {
                 onClick={() => document.getElementById('vehiclesection')?.scrollIntoView({ behavior: 'smooth' })}>
                 Book Your Ride →
               </button>
-              <button className="h-btn-dark"
-                onClick={() => handleTabChange({ id: "safari" })}>
-                Explore Tours →
-              </button>
+              <button 
+  className="h-btn-dark"
+  onClick={() => handleTabChange({ scroll: true, target: "tour-id" })}
+>
+  Explore Tours →
+</button>
             </div>
           </div>
         </div>

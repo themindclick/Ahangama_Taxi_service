@@ -38,7 +38,7 @@ const navbar = () => {
             className="flex items-center gap-1.5 font-semibold hover:text-[#EAB875] transition-colors"
           >
             <Phone size={12} />
-            +94 71 991 6072
+            +94 77 37 444 32
           </a>
         </div>
       </div>

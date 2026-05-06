@@ -88,13 +88,46 @@ export const vehicles = [
 ];
 
 export const serviceTypes = [
-  { id: "airport",  label: "Airport Transfer",  icon: "✈️", scroll: false, desc: "Comfortable pickup & drop to all airports." },
-  { id: "instant",  label: "Safari Tours",       icon: "🐘", scroll: false, desc: "Udawalawe, Yala & more wildlife adventures." },
-  { id: "safari",   label: "Private Tours",      icon: "🗺️", scroll: true,  target: "packages", desc: "Explore the beauty of Sri Lanka with us." },
-  { id: "tour",     label: "Daily Rentals",      icon: "🚕", scroll: false, desc: "Cars, Vans & Buses for your daily travel needs." },
-  { id: "rental",   label: "Custom Packages",    icon: "🧳", scroll: false, desc: "Tailor-made packages just for you." },
+  { 
+    id: "airport", 
+    label: "Airport Transfer", 
+    icon: "✈️", 
+    scroll: false, 
+    desc: "Comfortable pickup & drop to all airports" 
+  },
+  { 
+    id: "instant", 
+    label: "Customize Tour", 
+    icon: "🧳", 
+    scroll: false, 
+    desc: "Tailor-made packages just for you" 
+  },
+  { 
+    id: "safari", 
+    label: "Private Tours", 
+    icon: "🐘", 
+    scroll: true, 
+    // FIX: This must match the ID you added to your component (safari-id)
+    target: "safari-id", 
+    desc: "Udawalawe, Yala & more wildlife adventures" 
+  },
+  { 
+    id: "tour", 
+    label: "Day Tours", 
+    icon: "🗺️", 
+    scroll: true, 
+    // FIX: This must match the ID you added to your component (tour-id)
+    target: "tour-id", 
+    desc: "Explore the beauty of Sri Lanka with us" 
+  },
+  { 
+    id: "rental", 
+    label: "Daily Rentals", 
+    icon: "🚕", 
+    scroll: false, 
+    desc: "Daily travel needs" 
+  },
 ];
-
 export const businessInfo = {
   whatsapp: "94773744432",
   googleApiKey: "AIzaSyBmORHcnKutmtalu-EkLoioNuQVKza-6DE" // Replace with your actual key

@@ -409,7 +409,7 @@ export default function Packages() {
         <h3 style={{ fontSize: "2rem", marginBottom: "30px", borderLeft: "5px solid var(--gold)", paddingLeft: "15px", color: "var(--navy-deep)" }}>
           Safari Packages
         </h3>
-        <div className="h-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", marginBottom: "80px" }}>
+        <div id="safari-id" className="h-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", marginBottom: "80px" }}>
           {safariPackages.map((pkg) => <PackageCard key={pkg.id} pkg={pkg} />)}
         </div>
 
@@ -417,7 +417,7 @@ export default function Packages() {
         <h3 style={{ fontSize: "2rem", marginBottom: "30px", borderLeft: "5px solid var(--gold)", paddingLeft: "15px", color: "var(--navy-deep)" }}>
           Tour Packages
         </h3>
-        <div className="h-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))" }}>
+        <div id="tour-id" className="h-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))" }}>
           {tourPackages.map((pkg) => <PackageCard key={pkg.id} pkg={pkg} />)}
         </div>
 
