@@ -1,7 +1,6 @@
 // Hero.jsx — Modern redesign for Taxi Service Ahangama
 import React, { useState, useRef } from "react";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
-
 // NOTE: Ensure these are exported from your ../data/vehicles file
 // For this demo, I'm assuming the structure matches your previous snippet.
 import { vehicles, serviceTypes, businessInfo } from "../data/vehicles";
@@ -33,7 +32,7 @@ export default function Hero() {
   const [tempDest, setTempDest] = useState("");
 
   const { isLoaded } = useJsApiLoader({
-    googleApiKey: businessInfo.googleApiKey,
+    googleMapsApiKey: businessInfo.googleApiKey,
     libraries,
   });
 
@@ -82,7 +81,7 @@ export default function Hero() {
       setTempDest("");
       // Clear the input field manually if needed
       if (destAutocompleteRef.current) {
-        const input = destAutocompleteRef.current.getPlace(); 
+        const input = destAutocompleteRef.current.getPlace();
         // Logic to clear actual input DOM can be added if using native refs
       }
     }
@@ -90,10 +89,10 @@ export default function Hero() {
 
   const handleWhatsApp = (isTour = false) => {
     let msg = "";
-    
+
     if (isTour) {
       // 1. CUSTOM TOUR MESSAGE
-      msg = 
+      msg =
         `*✨ CUSTOM TOUR INQUIRY*%0A%0A` +
         `*Tour Type:* ${tourType || "Flexible"}%0A` +
         `*Pickup:* ${pickupLocation || "Not specified"}%0A` +
@@ -108,8 +107,8 @@ export default function Hero() {
 
       // Determine the Title based on the active tab
       // Assuming your serviceTypes IDs are 'airport' and 'rental'
-      const title = activeService === "airport" 
-        ? "*✈️ AIRPORT HIRE BOOKING*" 
+      const title = activeService === "airport"
+        ? "*✈️ AIRPORT HIRE BOOKING*"
         : "*🚗 VEHICLE RENTAL BOOKING*";
 
       // 2. AIRPORT OR RENTAL MESSAGE
@@ -159,54 +158,112 @@ export default function Hero() {
         .h-root * { box-sizing: border-box; }
         .h-root { font-family: 'DM Sans', sans-serif; background: #eef2fa; min-height: 100vh; padding-bottom: 80px; }
 
+
+                /* ── HERO BANNER (split layout) ── */
         .h-banner {
-          position: relative; min-height: 40vh;
-          display: flex; align-items: center; justify-content: center;
-          overflow: hidden; text-align: center;
+         position: relative;
+          min-height: 58vh;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
         }
         .h-banner__bg {
           position: absolute; inset: 0;
-          background: url('https://do6raq9h04ex.cloudfront.net/sites/8/2021/07/galle-fort-1050x700-1.jpg') center/cover no-repeat;
+           background: url('https://resources.travellocal.com/wp/uploads/2023/01/26120050/d2c54ee1-3c98-445d-b3c5-55eae274c55e-gallefort-galle-Srilanka-SS.jpeg-scaled.jpg') center/cover no-repeat;
         }
         .h-banner__overlay {
           position: absolute; inset: 0;
-          background: linear-gradient(130deg, var(--navy-deep) 0%, var(--navy) 10%, rgba(0,90,205,.55) 100%);
+           background: linear-gradient(100deg, #001f6b 0%, #003d8f 2%, rgba(0,31,107,0.55) 10%, transparent 100%);
         }
         .h-banner__noise {
           position: absolute; inset: 0; opacity: .04;
           background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
         .h-banner__arc {
-          position: absolute; bottom: -1px; left: 0; right: 0; height: 72px;
+          position: absolute; bottom: -1px; left: 0; right: 0; height: 52px;
           background: #eef2fa;
           clip-path: ellipse(58% 100% at 50% 100%);
         }
-        .h-banner__inner { position: relative; z-index: 5; padding: 0 24px; }
-
-        .h-pill {
-          display: inline-flex; align-items: center; gap: 8px;
-          border: 1px solid rgba(234,184,117,.45);
-          background: rgba(255,255,255,.1); backdrop-filter: blur(8px);
-          border-radius: 99px; padding: 6px 18px; margin-bottom: 18px;
-          font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--gold);
+        .h-banner__left {
+          position: relative; z-index: 5;
+          flex: 1; padding: 60px 40px 100px 60px;
+          max-width: 580px;
+          animation: riseUp .9s cubic-bezier(.22,1,.36,1) both;
         }
-        .h-pill__dot {
-          width: 7px; height: 7px; border-radius: 50%; background: var(--gold);
-          animation: blink 1.8s ease-in-out infinite;
+        .h-banner__right {
+          position: relative; z-index: 5;
+          flex: 1; display: flex; align-items: flex-end; justify-content: center;
+          padding: 0 20px 72px 0;
         }
-        @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.65)} }
+        .h-banner__van {
+          width: 100%; max-width: 560px;
+          object-fit: contain;
+          filter: drop-shadow(0 24px 48px rgba(0,0,0,0.45));
+          animation: floatVan 4s ease-in-out infinite;
+        }
+        @keyframes floatVan {
+          0%,100% { transform: translateY(0); }
+          50%      { transform: translateY(-10px); }
+        }
 
+        /* badge */
+        .h-badge {
+          display: inline-flex; align-items: center; gap: 7px;
+          background: rgba(0,31,107,0.65); border: 1px solid rgba(234,184,117,0.55);
+          backdrop-filter: blur(8px); border-radius: 6px;
+          padding: 6px 14px; margin-bottom: 20px;
+          font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: .06em;
+        }
+
+        /* heading */
         .h-title {
           font-family: 'Playfair Display', serif; font-weight: 900;
-          font-size: clamp(2.2rem, 5.5vw, 4.2rem); line-height: 1.06; color: #fff;
-          margin: 0 0 14px; animation: riseUp .9s cubic-bezier(.22,1,.36,1) both;
+          font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.12; color: #fff;
+          margin: 0 0 14px;
         }
-        .h-title em { color: var(--gold); font-style: italic; }
+        .h-title em { color: var(--gold); font-style: normal; }
         .h-sub {
-          color: rgba(195,231,241,.9); font-size: 1.02rem; font-weight: 400;
-          animation: riseUp .9s .15s cubic-bezier(.22,1,.36,1) both;
+          color: rgba(195,231,241,.9); font-size: 0.95rem; font-weight: 400;
+          line-height: 1.65; margin-bottom: 26px;
         }
-        @keyframes riseUp { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+
+        /* mini service highlights */
+        .h-svc-row { display: flex; gap: 22px; flex-wrap: wrap; margin-bottom: 30px; }
+        .h-svc-item { display: flex; align-items: center; gap: 9px; }
+        .h-svc-icon {
+          width: 34px; height: 34px; border-radius: 8px;
+          background: rgba(255,255,255,0.15); display: flex;
+          align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0;
+        }
+        .h-svc-label { font-size: 10px; font-weight: 800; color: #fff; letter-spacing: .05em; display: block; }
+        .h-svc-sub   { font-size: 9px;  color: rgba(195,231,241,0.75); display: block; }
+
+        /* CTA buttons */
+        .h-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+        .h-btn-gold {
+          padding: 13px 26px; background: var(--gold); color: #0c1a3d;
+          border: none; border-radius: 10px; font-weight: 800; font-size: 0.88rem;
+          cursor: pointer; display: flex; align-items: center; gap: 7px;
+          transition: all .22s; font-family: 'DM Sans', sans-serif;
+        }
+        .h-btn-gold:hover { background: #d4a058; transform: translateY(-2px); }
+        .h-btn-dark {
+          padding: 13px 26px; background: rgba(255,255,255,0.12);
+          backdrop-filter: blur(8px); border: 1.5px solid rgba(255,255,255,0.35);
+          color: #fff; border-radius: 10px; font-weight: 800; font-size: 0.88rem;
+          cursor: pointer; display: flex; align-items: center; gap: 7px;
+          transition: all .22s; font-family: 'DM Sans', sans-serif;
+        }
+        .h-btn-dark:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); 
+        }
+        @keyframes riseUp { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} 
+        }
+
+        @media(max-width:900px) {
+          .h-banner { flex-direction: column; }
+          .h-banner__left { padding: 50px 24px 20px; max-width: 100%; }
+          .h-banner__right { display: none; }
+        }
 
         .h-shell {
           max-width: 1160px; margin: -52px auto 0; padding: 0 20px;
@@ -218,25 +275,59 @@ export default function Hero() {
           overflow: hidden;
         }
 
-        .h-tabs { display: flex; overflow-x: auto; border-bottom: 1.5px solid #edf0f8; scrollbar-width: none; }
+        /* ── SERVICE TABS (icon card style) ── */
+        .h-tabs-wrapper {
+          padding: 28px 30px 10px;
+          border-bottom: 1.5px solid #edf0f8;
+        }
+        .h-tabs-title {
+          display: flex; align-items: center; justify-content: center; gap: 14px;
+          margin-bottom: 24px;
+        }
+        .h-tabs-title__line { flex: 1; max-width: 80px; height: 2px; background: var(--gold); border-radius: 2px; }
+        .h-tabs-title__text {
+          font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+          font-weight: 800; color: #0c1a3d; letter-spacing: .06em;
+          text-transform: uppercase; white-space: nowrap;
+        }
+        .h-tabs { display: flex; overflow-x: auto; gap: 8px; scrollbar-width: none; justify-content: center; }
         .h-tabs::-webkit-scrollbar { display: none; }
         .h-tab {
-          flex: 1; min-width: 105px; padding: 18px 10px;
-          display: flex; flex-direction: column; align-items: center; gap: 5px;
+          flex: 0 0 auto; min-width: 110px; padding: 14px 12px 18px;
+          display: flex; flex-direction: column; align-items: center; gap: 10px;
           border: none; background: transparent; cursor: pointer; position: relative;
-          font-family: 'DM Sans', sans-serif; transition: all .22s;
+          font-family: 'DM Sans', sans-serif; transition: all .22s; border-radius: 14px;
         }
         .h-tab::after {
-          content: ''; position: absolute; bottom: 0; left: 16px; right: 16px;
+          content: ''; position: absolute; bottom: 0; left: 20px; right: 20px;
           height: 3px; border-radius: 3px 3px 0 0; background: var(--navy);
           transform: scaleX(0); transition: transform .25s ease;
         }
-        .h-tab.active { color: var(--navy); }
-        .h-tab.active::after { transform: scaleX(1); }
-        .h-tab:not(.active) { color: #a0aabb; }
-        .h-tab:not(.active):hover { color: var(--navy); background: #f6f9ff; }
-        .h-tab__icon { font-size: 20px; }
-        .h-tab__label { font-size: 9.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+        
+        .h-tab:not(.active):hover { background: #f6f9ff; }
+        .h-tab__icon-wrap {
+          width: 52px; height: 52px; border-radius: 50%;
+          background: var(--navy-deep);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 22px;
+          transition: transform .22s, background .22s;
+        }
+        .h-tab.active .h-tab__icon-wrap { background: var(--navy); transform: scale(1.08); }
+        .h-tab:not(.active):hover .h-tab__icon-wrap { background: var(--navy); }
+        .h-tab__label {
+          font-size: 9px; font-weight: 800; letter-spacing: .1em;
+          text-transform: uppercase; color: #0c1a3d; text-align: center; line-height: 1.3;
+        }
+        .h-tab__desc {
+          font-size: 8px; color: #9ca3af; text-align: center;
+          line-height: 1.4; margin-top: -4px;
+        }
+        @media(max-width: 640px) {
+          .h-tabs-wrapper { padding: 20px 12px 8px; }
+          .h-tab { min-width: 88px; padding: 10px 6px 14px; }
+          .h-tab__icon-wrap { width: 42px; height: 42px; font-size: 18px; }
+          .h-tab__desc { display: none; }
+        }
 
         .h-section { padding: 40px 44px; }
         @media(max-width:768px){ .h-section { padding: 28px 14px; } }
@@ -382,27 +473,62 @@ export default function Hero() {
           <div className="h-banner__bg" />
           <div className="h-banner__overlay" />
           <div className="h-banner__noise" />
-          <div className="h-banner__inner">
-            <div className="h-pill"><span className="h-pill__dot" /> Ahangama · Galle · Sri Lanka</div>
-            <h1 className="h-title">Choose Your <em>Ride</em></h1>
-            <p className="h-sub">Select a category and your preferred vehicle<br />to start your journey.</p>
+          {/* LEFT — text content */}
+          <div className="h-banner__left">
+            <div className="h-badge">⭐ Trusted Taxi Service in Ahangama</div>
+            <h1 className="h-title">Private <em>Taxi &amp; Tours</em><br />in Ahangama</h1>
+            <p className="h-sub">Safe, Comfortable &amp; Reliable Transport Services<br />for Your Journey in Sri Lanka.</p>
+
+            <div className="h-svc-row">
+              <div className="h-svc-item">
+                <div className="h-svc-icon">✈️</div>
+                <div><span className="h-svc-label">Airport Transfers</span><span className="h-svc-sub">On-time &amp; Hassle-free</span></div>
+              </div>
+              <div className="h-svc-item">
+                <div className="h-svc-icon">🦁</div>
+                <div><span className="h-svc-label">Safari Adventures</span><span className="h-svc-sub">Explore Wildlife</span></div>
+              </div>
+              <div className="h-svc-item">
+                <div className="h-svc-icon">🗺️</div>
+                <div><span className="h-svc-label">Custom Tours</span><span className="h-svc-sub">Your Journey, Your Way</span></div>
+              </div>
+            </div>
+
+            <div className="h-cta-row">
+              <button className="h-btn-gold"
+                onClick={() => document.getElementById('vehiclesection')?.scrollIntoView({ behavior: 'smooth' })}>
+                Book Your Ride →
+              </button>
+              <button className="h-btn-dark"
+                onClick={() => handleTabChange({ id: "safari" })}>
+                Explore Tours →
+              </button>
+            </div>
           </div>
-          <div className="h-banner__arc" />
         </div>
 
-        <div className="h-shell">
+
+        <div className="h-shell " id="vehiclesection" >
           <div className="h-card">
-            <div className="h-tabs">
-              {serviceTypes.map((s) => (
-                <button
-                  key={s.id}
-                  onClick={() => handleTabChange(s)}
-                  className={`h-tab${activeService === s.id && !s.scroll ? " active" : ""}`}
-                >
-                  <span className="h-tab__icon">{s.icon}</span>
-                  <span className="h-tab__label">{s.label}</span>
-                </button>
-              ))}
+            <div className="h-tabs-wrapper">
+              <div className="h-tabs-title">
+                <span className="h-tabs-title__line" />
+                <span className="h-tabs-title__text">Choose Your Service</span>
+                <span className="h-tabs-title__line" />
+              </div>
+              <div className="h-tabs">
+                {serviceTypes.map((s) => (
+                  <button
+                    key={s.id}
+                    onClick={() => handleTabChange(s)}
+                    className={`h-tab${activeService === s.id && !s.scroll ? " active" : ""}`}
+                  >
+                    <span className="h-tab__icon-wrap">{s.icon}</span>
+                    <span className="h-tab__label">{s.label}</span>
+                    {s.desc && <span className="h-tab__desc">{s.desc}</span>}
+                  </button>
+                ))}
+              </div>
             </div>
 
             <div className="h-section">
@@ -411,7 +537,7 @@ export default function Hero() {
                 <div className="ct-container">
                   <div className="ct-main">
                     <h2 className="h-section-title" style={{ marginBottom: '20px' }}>Travel Details</h2>
-                    
+
                     <select className="h-finput" style={{ marginBottom: '12px' }} onChange={(e) => setTourType(e.target.value)}>
                       <option value="">Choose a tour type</option>
                       <option value="Sightseeing">Sightseeing Tour</option>
@@ -420,20 +546,25 @@ export default function Hero() {
                     </select>
 
                     <div className="ct-row">
-                      {isLoaded && (
+                      {isLoaded ? (
                         <>
-                          <Autocomplete 
-                            onLoad={ac => (pickupAutocompleteRef.current = ac)} 
+                          <Autocomplete
+                            onLoad={ac => (pickupAutocompleteRef.current = ac)}
                             onPlaceChanged={onPickupChanged}
                           >
-                            <input type="text" placeholder="Pick Location" className="h-finput" />
+                            <input type="text" placeholder="Pick Location" className="h-finput" value={pickupLocation} onChange={e => setPickupLocation(e.target.value)} />
                           </Autocomplete>
-                          <Autocomplete 
-                            onLoad={ac => (dropAutocompleteRef.current = ac)} 
+                          <Autocomplete
+                            onLoad={ac => (dropAutocompleteRef.current = ac)}
                             onPlaceChanged={onDropChanged}
                           >
-                            <input type="text" placeholder="Drop Location" className="h-finput" />
+                            <input type="text" placeholder="Drop Location" className="h-finput" value={dropLocation} onChange={e => setDropLocation(e.target.value)} />
                           </Autocomplete>
+                        </>
+                      ) : (
+                        <>
+                          <input type="text" placeholder="Pick Location" className="h-finput" value={pickupLocation} onChange={e => setPickupLocation(e.target.value)} />
+                          <input type="text" placeholder="Drop Location" className="h-finput" value={dropLocation} onChange={e => setDropLocation(e.target.value)} />
                         </>
                       )}
                     </div>
@@ -441,7 +572,7 @@ export default function Hero() {
                     <div className="ct-row">
                       <input type="date" className="h-finput" style={{ flex: 2 }} onChange={e => setDateTime(e.target.value)} />
                       <select className="h-finput" style={{ flex: 1 }} value={tourDays} onChange={e => setTourDays(e.target.value)}>
-                        {[1,2,3,4,5,6,7,10,14].map(n => <option key={n} value={n}>Days {n}</option>)}
+                        {[1, 2, 3, 4, 5, 6, 7, 10, 14].map(n => <option key={n} value={n}>Days {n}</option>)}
                       </select>
                     </div>
 
@@ -463,26 +594,34 @@ export default function Hero() {
                         </div>
                       ))}
                     </div>
-                    
+
                     <button className="btn-wa" style={{ marginTop: '20px' }} onClick={() => handleWhatsApp(true)}>Confirm via WhatsApp</button>
                   </div>
 
                   <div className="ct-side">
                     <h3 className="h-flabel" style={{ marginBottom: '12px', fontSize: '12px' }}>Add Destinations</h3>
                     <div className="ct-row">
-                      {isLoaded && (
-                        <Autocomplete 
-                          onLoad={ac => (destAutocompleteRef.current = ac)} 
+                      {isLoaded ? (
+                        <Autocomplete
+                          onLoad={ac => (destAutocompleteRef.current = ac)}
                           onPlaceChanged={onDestChanged}
                         >
-                          <input 
-                            type="text" 
-                            placeholder="Add Destinations" 
-                            className="h-finput" 
-                            value={tempDest} 
-                            onChange={e => setTempDest(e.target.value)} 
+                          <input
+                            type="text"
+                            placeholder="Add Destinations"
+                            className="h-finput"
+                            value={tempDest}
+                            onChange={e => setTempDest(e.target.value)}
                           />
                         </Autocomplete>
+                      ) : (
+                        <input
+                          type="text"
+                          placeholder="Add Destinations"
+                          className="h-finput"
+                          value={tempDest}
+                          onChange={e => setTempDest(e.target.value)}
+                        />
                       )}
                       <button onClick={addDestination} style={{ background: '#0c1a3d', color: '#fff', border: 'none', borderRadius: '10px', padding: '0 15px', cursor: 'pointer', fontWeight: 700 }}>Add</button>
                     </div>
@@ -536,11 +675,11 @@ export default function Hero() {
           <div className="modal-overlay" onClick={() => setSelectedVehicle(null)}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <button className="modal-close" onClick={() => setSelectedVehicle(null)}>✕</button>
-              
+
               <div className="h-form">
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '25px' }}>
-                  <div style={{ 
-                    background: 'var(--navy)', color: '#fff', width: '40px', height: '40px', 
+                  <div style={{
+                    background: 'var(--navy)', color: '#fff', width: '40px', height: '40px',
                     borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontWeight: 'bold', fontSize: '1.2rem'
                   }}>2</div>
@@ -550,25 +689,29 @@ export default function Hero() {
                 <div className="h-fgrid">
                   <div className="h-fgroup">
                     <label className="h-flabel">Pickup Location</label>
-                    {isLoaded && (
-                      <Autocomplete 
-                        onLoad={ac => (pickupAutocompleteRef.current = ac)} 
+                    {isLoaded ? (
+                      <Autocomplete
+                        onLoad={ac => (pickupAutocompleteRef.current = ac)}
                         onPlaceChanged={onPickupChanged}
                       >
-                        <input type="text" placeholder="📍 Pickup point" className="h-finput" />
+                        <input type="text" placeholder="📍 Pickup point" className="h-finput" value={pickupLocation} onChange={e => setPickupLocation(e.target.value)} />
                       </Autocomplete>
+                    ) : (
+                      <input type="text" placeholder="📍 Pickup point" className="h-finput" value={pickupLocation} onChange={e => setPickupLocation(e.target.value)} />
                     )}
                   </div>
 
                   <div className="h-fgroup">
                     <label className="h-flabel">Drop Location</label>
-                    {isLoaded && (
-                      <Autocomplete 
-                        onLoad={ac => (dropAutocompleteRef.current = ac)} 
+                    {isLoaded ? (
+                      <Autocomplete
+                        onLoad={ac => (dropAutocompleteRef.current = ac)}
                         onPlaceChanged={onDropChanged}
                       >
-                        <input type="text" placeholder="🏁 Destination" className="h-finput" />
+                        <input type="text" placeholder="🏁 Destination" className="h-finput" value={dropLocation} onChange={e => setDropLocation(e.target.value)} />
                       </Autocomplete>
+                    ) : (
+                      <input type="text" placeholder="🏁 Destination" className="h-finput" value={dropLocation} onChange={e => setDropLocation(e.target.value)} />
                     )}
                   </div>
 
@@ -590,12 +733,12 @@ export default function Hero() {
                   <div className="h-fgroup">
                     <label className="h-flabel">Baggage Details</label>
                     <div style={{ display: 'flex', gap: '8px' }}>
-                      <input 
-                        type="number" 
-                        placeholder="Bags" 
-                        className="h-finput" 
-                        style={{ flex: 1 }} 
-                        onChange={e => setBagsCount(e.target.value)} 
+                      <input
+                        type="number"
+                        placeholder="Bags"
+                        className="h-finput"
+                        style={{ flex: 1 }}
+                        onChange={e => setBagsCount(e.target.value)}
                       />
                       <select className="h-finput" style={{ flex: 1.5 }} onChange={e => setBagsSize(e.target.value)}>
                         <option value="">Size...</option>

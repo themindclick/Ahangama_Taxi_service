@@ -10,7 +10,7 @@ const libraries = ["places"];
 const FleetPage = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  
+
   // NEW: Selection & Form states to match Hero features
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [pickupLocation, setPickupLocation] = useState("");
@@ -44,32 +44,32 @@ const FleetPage = () => {
     }
   };
 
-const handleWhatsApp = () => {
-  if (!selectedVehicle) return;
+  const handleWhatsApp = () => {
+    if (!selectedVehicle) return;
 
-  const bagsDetail = [bagsCount, bagsSize].filter(Boolean).join(" × ") || "Not specified";
+    const bagsDetail = [bagsCount, bagsSize].filter(Boolean).join(" × ") || "Not specified";
 
-  const bookingDetails = [
-    { label: "Vehicle",    value: `${selectedVehicle.label} (${selectedVehicle.model})` },
-    { label: "Pickup",     value: pickupLocation  || "Not specified" },
-    { label: "Drop",       value: dropLocation    || "Not specified" },
-    { label: "Date/Time",  value: dateTime        || "Not specified" },
-    { label: "Customer",   value: passengerName   || "Not specified" },
-    { label: "Passengers", value: passengerCount  || "Not specified" },
-    { label: "Baggage",    value: bagsDetail },
-  ];
+    const bookingDetails = [
+      { label: "Vehicle", value: `${selectedVehicle.label} (${selectedVehicle.model})` },
+      { label: "Pickup", value: pickupLocation || "Not specified" },
+      { label: "Drop", value: dropLocation || "Not specified" },
+      { label: "Date/Time", value: dateTime || "Not specified" },
+      { label: "Customer", value: passengerName || "Not specified" },
+      { label: "Passengers", value: passengerCount || "Not specified" },
+      { label: "Baggage", value: bagsDetail },
+    ];
 
-  const formattedDetails = bookingDetails
-    .map(({ label, value }) => `*${label}:* ${value}`)
-    .join("\n");
+    const formattedDetails = bookingDetails
+      .map(({ label, value }) => `*${label}:* ${value}`)
+      .join("\n");
 
-  const message = `Hello! I'd like to book a ride.\n\n${formattedDetails}`;
+    const message = `Hello! I'd like to book a ride.\n\n${formattedDetails}`;
 
-  window.open(
-    `https://wa.me/${businessInfo.whatsapp}?text=${encodeURIComponent(message)}`,
-    "_blank"
-  );
-};
+    window.open(
+      `https://wa.me/${businessInfo.whatsapp}?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
+  };
 
   const handleCall = () => {
     window.location.href = `tel:${businessInfo.phone}`;
@@ -378,88 +378,92 @@ const handleWhatsApp = () => {
 
         {/* ── BOOKING MODAL POPUP ── */}
         {selectedVehicle && (
-                  <div className="modal-overlay" onClick={() => setSelectedVehicle(null)}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                      <button className="modal-close" onClick={() => setSelectedVehicle(null)}>✕</button>
-                      
-                      <div className="h-form">
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '25px' }}>
-                          <div style={{ 
-                            background: 'var(--navy)', color: '#fff', width: '40px', height: '40px', 
-                            borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontWeight: 'bold', fontSize: '1.2rem'
-                          }}>2</div>
-                          <h2 className="h-section-title" style={{ margin: 0 }}>Confirm {selectedVehicle.label}</h2>
-                        </div>
-        
-                        <div className="h-fgrid">
-                          <div className="h-fgroup">
-                            <label className="h-flabel">Pickup Location</label>
-                            {isLoaded && (
-                              <Autocomplete 
-                                onLoad={ac => (pickupAutocompleteRef.current = ac)} 
-                                onPlaceChanged={onPickupChanged}
-                              >
-                                <input type="text" placeholder="📍 Pickup point" className="h-finput" />
-                              </Autocomplete>
-                            )}
-                          </div>
-        
-                          <div className="h-fgroup">
-                            <label className="h-flabel">Drop Location</label>
-                            {isLoaded && (
-                              <Autocomplete 
-                                onLoad={ac => (dropAutocompleteRef.current = ac)} 
-                                onPlaceChanged={onDropChanged}
-                              >
-                                <input type="text" placeholder="🏁 Destination" className="h-finput" />
-                              </Autocomplete>
-                            )}
-                          </div>
-        
-                          <div className="h-fgroup">
-                            <label className="h-flabel">Date & Time</label>
-                            <input type="datetime-local" className="h-finput" onChange={e => setDateTime(e.target.value)} />
-                          </div>
-        
-                          <div className="h-fgroup">
-                            <label className="h-flabel">Your Name</label>
-                            <input type="text" placeholder="👤 Full Name" className="h-finput" onChange={e => setPassengerName(e.target.value)} />
-                          </div>
-        
-                          <div className="h-fgroup">
-                            <label className="h-flabel">No. of Passengers</label>
-                            <input type="number" placeholder="How many people?" className="h-finput" min="1" onChange={e => setPassengerCount(e.target.value)} />
-                          </div>
-        
-                          <div className="h-fgroup">
-                            <label className="h-flabel">Baggage Details</label>
-                            <div style={{ display: 'flex', gap: '8px' }}>
-                              <input 
-                                type="number" 
-                                placeholder="Bags" 
-                                className="h-finput" 
-                                style={{ flex: 1 }} 
-                                onChange={e => setBagsCount(e.target.value)} 
-                              />
-                              <select className="h-finput" style={{ flex: 1.5 }} onChange={e => setBagsSize(e.target.value)}>
-                                <option value="">Size...</option>
-                                <option value="Small">Small (Hand)</option>
-                                <option value="Medium">Medium</option>
-                                <option value="Large">Large / XL</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-        
-                        <div className="h-actions">
-                          <button className="btn-wa" onClick={() => handleWhatsApp(false)}>Confirm via WhatsApp</button>
-                          <button className="btn-call" onClick={handleCall}>Call Us</button>
-                        </div>
-                      </div>
+          <div className="modal-overlay" onClick={() => setSelectedVehicle(null)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <button className="modal-close" onClick={() => setSelectedVehicle(null)}>✕</button>
+
+              <div className="h-form">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '25px' }}>
+                  <div style={{
+                    background: 'var(--navy)', color: '#fff', width: '40px', height: '40px',
+                    borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontWeight: 'bold', fontSize: '1.2rem'
+                  }}>2</div>
+                  <h2 className="h-section-title" style={{ margin: 0 }}>Confirm {selectedVehicle.label}</h2>
+                </div>
+
+                <div className="h-fgrid">
+                  <div className="h-fgroup">
+                    <label className="h-flabel">Pickup Location</label>
+                    {isLoaded ? (
+                      <Autocomplete
+                        onLoad={ac => (pickupAutocompleteRef.current = ac)}
+                        onPlaceChanged={onPickupChanged}
+                      >
+                        <input type="text" placeholder="📍 Pickup point" className="h-finput" value={pickupLocation} onChange={e => setPickupLocation(e.target.value)} />
+                      </Autocomplete>
+                    ) : (
+                      <input type="text" placeholder="📍 Pickup point" className="h-finput" value={pickupLocation} onChange={e => setPickupLocation(e.target.value)} />
+                    )}
+                  </div>
+
+                  <div className="h-fgroup">
+                    <label className="h-flabel">Drop Location</label>
+                    {isLoaded ? (
+                      <Autocomplete
+                        onLoad={ac => (dropAutocompleteRef.current = ac)}
+                        onPlaceChanged={onDropChanged}
+                      >
+                        <input type="text" placeholder="🏁 Destination" className="h-finput" value={dropLocation} onChange={e => setDropLocation(e.target.value)} />
+                      </Autocomplete>
+                    ) : (
+                      <input type="text" placeholder="🏁 Destination" className="h-finput" value={dropLocation} onChange={e => setDropLocation(e.target.value)} />
+                    )}
+                  </div>
+
+                  <div className="h-fgroup">
+                    <label className="h-flabel">Date & Time</label>
+                    <input type="datetime-local" className="h-finput" onChange={e => setDateTime(e.target.value)} />
+                  </div>
+
+                  <div className="h-fgroup">
+                    <label className="h-flabel">Your Name</label>
+                    <input type="text" placeholder="👤 Full Name" className="h-finput" onChange={e => setPassengerName(e.target.value)} />
+                  </div>
+
+                  <div className="h-fgroup">
+                    <label className="h-flabel">No. of Passengers</label>
+                    <input type="number" placeholder="How many people?" className="h-finput" min="1" onChange={e => setPassengerCount(e.target.value)} />
+                  </div>
+
+                  <div className="h-fgroup">
+                    <label className="h-flabel">Baggage Details</label>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <input
+                        type="number"
+                        placeholder="Bags"
+                        className="h-finput"
+                        style={{ flex: 1 }}
+                        onChange={e => setBagsCount(e.target.value)}
+                      />
+                      <select className="h-finput" style={{ flex: 1.5 }} onChange={e => setBagsSize(e.target.value)}>
+                        <option value="">Size...</option>
+                        <option value="Small">Small (Hand)</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Large">Large / XL</option>
+                      </select>
                     </div>
                   </div>
-                )}
+                </div>
+
+                <div className="h-actions">
+                  <button className="btn-wa" onClick={() => handleWhatsApp(false)}>Confirm via WhatsApp</button>
+                  <button className="btn-call" onClick={handleCall}>Call Us</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
