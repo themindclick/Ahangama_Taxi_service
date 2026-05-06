@@ -180,7 +180,7 @@ export default function Hero() {
           background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
         .h-banner__arc {
-          position: absolute; bottom: -1px; left: 0; right: 0; height: 52px;
+          position: absolute; bottom: -1px; left: 0; right: 0; height: 62px;
           background: #eef2fa;
           clip-path: ellipse(58% 100% at 50% 100%);
         }
@@ -261,7 +261,7 @@ export default function Hero() {
 
         @media(max-width:900px) {
           .h-banner { flex-direction: column; }
-          .h-banner__left { padding: 50px 24px 20px; max-width: 100%; }
+          .h-banner__left { padding: 50px 24px 90px; max-width: 100%; }
           .h-banner__right { display: none; }
         }
 

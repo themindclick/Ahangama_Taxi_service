@@ -1,7 +1,13 @@
 // Booking.jsx — Redesigned for Taxi Service Ahangama
 // All original functions preserved. Colors: #EAB875, #C3E7F1, #005acd
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
+import { businessInfo } from "../data/vehicles";
+
+
+const libraries = ["places"];
+
 
 const Booking = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +23,21 @@ const Booking = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: businessInfo.googleApiKey,
+    libraries,
+  });
+
+  const pickupAutocompleteRef = useRef(null);
+
+
+  const onPickupChanged = () => {
+    if (pickupAutocompleteRef.current !== null) {
+      const place = pickupAutocompleteRef.current.getPlace();
+      setFormData(prev => ({ ...prev, location: place.formatted_address || place.name }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -359,7 +380,7 @@ _Sent via taxiserviceahangama.lk_
                 </div>
 
                 {/* Location */}
-                <div className="bk-fgroup">
+                {/*<div className="bk-fgroup">
                   <label className="bk-label">Pickup Location</label>
                   <input
                     type="text" name="location" value={formData.location}
@@ -367,6 +388,34 @@ _Sent via taxiserviceahangama.lk_
                     placeholder="e.g. Bandaranaike Airport or Hotel Name"
                     className="bk-input"
                   />
+                </div>*/}
+
+                <div className="bk-fgroup">
+                  <label className="bk-label">Pickup Location</label>
+                  {isLoaded ? (
+                    <Autocomplete
+                      onLoad={ac => (pickupAutocompleteRef.current = ac)}
+                      onPlaceChanged={onPickupChanged}
+                    >
+                      <input 
+                        type="text" 
+                        name="location"
+                        placeholder="e.g. Bandaranaike Airport or Hotel Name" 
+                        className="bk-input" 
+                        value={formData.location} 
+                        onChange={handleChange} 
+                      />
+                    </Autocomplete>
+                  ) : (
+                    <input 
+                      type="text" 
+                      name="location"
+                      placeholder="e.g. Bandaranaike Airport or Hotel Name" 
+                      className="bk-input" 
+                      value={formData.location} 
+                      onChange={handleChange} 
+                    />
+                  )}
                 </div>
 
                 <hr className="bk-divider" />
