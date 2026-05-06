@@ -273,7 +273,7 @@ const packages = [
     category: "tour",
     title: "HERITAGE & WILDLIFE EXPEDITION",
     subtitle: "Safaris & Ancient Cities",
-    image: "hhttps://mysltravel.com/wp-content/uploads/2020/12/Yala-Deer.jpg",
+    image: "https://www.laurewanders.com/wp-content/uploads/2025/01/A-day-in-Polonnaruwa-00001.jpg",
     timing: "08 Days / 07 Nights",
     duration: "Multi-Day Journey",
     price: "Custom",
