@@ -5,6 +5,8 @@ import { vehicles, serviceTypes, businessInfo } from "../data/vehicles";
 
 const libraries = ["places"];
 
+
+
 const FleetPage = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,6 +17,10 @@ const FleetPage = () => {
   const [dropLocation, setDropLocation] = useState("");
   const [dateTime, setDateTime] = useState("");
   const [passengerName, setPassengerName] = useState("");
+  const [passengerCount, setPassengerCount] = useState("");  // ← moved inside
+  const [bagsCount, setBagsCount] = useState("");            // ← moved inside
+  const [bagsSize, setBagsSize] = useState("");
+
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: businessInfo.googleApiKey,
@@ -41,12 +47,16 @@ const FleetPage = () => {
 const handleWhatsApp = () => {
   if (!selectedVehicle) return;
 
+  const bagsDetail = [bagsCount, bagsSize].filter(Boolean).join(" × ") || "Not specified";
+
   const bookingDetails = [
-    { label: "Vehicle",   value: `${selectedVehicle.label} (${selectedVehicle.model})` },
-    { label: "Pickup",    value: pickupLocation  || "Not specified" },
-    { label: "Drop",      value: dropLocation    || "Not specified" },
-    { label: "Date/Time", value: dateTime        || "Not specified" },
-    { label: "Customer",  value: passengerName   || "Not specified" },
+    { label: "Vehicle",    value: `${selectedVehicle.label} (${selectedVehicle.model})` },
+    { label: "Pickup",     value: pickupLocation  || "Not specified" },
+    { label: "Drop",       value: dropLocation    || "Not specified" },
+    { label: "Date/Time",  value: dateTime        || "Not specified" },
+    { label: "Customer",   value: passengerName   || "Not specified" },
+    { label: "Passengers", value: passengerCount  || "Not specified" },
+    { label: "Baggage",    value: bagsDetail },
   ];
 
   const formattedDetails = bookingDetails
