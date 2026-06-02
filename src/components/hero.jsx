@@ -169,7 +169,7 @@ export default function Hero() {
         }
         .h-banner__bg {
           position: absolute; inset: 0;
-           background: url('/assets/bg.png') center/cover no-repeat;
+           background: url('/assets/bgnew.png') center/cover no-repeat;
         }
         .h-banner__overlay {
           position: absolute; inset: 0;
