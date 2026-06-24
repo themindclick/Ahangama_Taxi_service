@@ -9,7 +9,7 @@ export const vehicles = [
     capacity: "Up to 2 Passengers",
     baggage: "2 Small Luggage",
     note: "Vehicle capacity may vary based on the size and quantity of passenger luggage.",
-    image: "https://www.popularmaruti.com/blog/wp-content/uploads/2022/12/20903608375b891fb77e8402.66922053.jpg",
+    image: "https://www.globalsuzuki.com/globalnews/2025/img/0804a_01.jpg",
     price: "Economy",
     features: ["AC", "Clean Interior"]
   },

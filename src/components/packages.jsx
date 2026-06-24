@@ -8,7 +8,7 @@ const packages = [
     category: "safari",
     title: "The Premier Yala Safari",
     subtitle: "Highest Leopard Density in the World",
-    image: "https://www.reservationyala.lk/_next/image?url=%2Fimages%2Fexpert-guide%25202.jpg&w=3840&q=75",
+    image: "https://www.cutourssrilanka.com/assets/popular/yala.jpg",
     timing: "Morning or Afternoon (6:00 AM – 6:00 PM)",
     duration: "2.5 - 3 Hours Travel",
     price: "All-Inclusive",
